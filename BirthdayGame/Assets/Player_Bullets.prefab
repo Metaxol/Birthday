@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212542052171808422}
   - component: {fileID: 61669630133851730}
   - component: {fileID: 50872500412264004}
+  - component: {fileID: 114893501896617836}
   m_Layer: 0
   m_Name: Player_Bullets
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439907246187896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0372, y: -0.1988, z: 0}
-  m_LocalScale: {x: 3.5805483, y: 5.5304403, z: 1}
+  m_LocalPosition: {x: 0.0524, y: 2.5449, z: 0}
+  m_LocalScale: {x: 1.8263521, y: 2.8991446, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -87,6 +88,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.08985028}
   m_EdgeRadius: 0
+--- !u!114 &114893501896617836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439907246187896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485ea12e3acc563429099b1b1223ea40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSpeed: 0
+  ySpeed: 0
 --- !u!212 &212542052171808422
 SpriteRenderer:
   m_ObjectHideFlags: 1

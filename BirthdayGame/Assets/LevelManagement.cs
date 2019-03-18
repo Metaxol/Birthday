@@ -2,6 +2,4 @@
 
 public class LevelManagement : MonoBehaviour {
 
-    //private Enemy
-
 }
