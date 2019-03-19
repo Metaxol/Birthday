@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector] public bool PlayerCanMove = true;
     [HideInInspector] public Animator PlayerAnimator;
 
-    private Vector3 LastPosition;
+    [HideInInspector] public Vector3 LastPosition;
 
     private void Move_Player(float MoveSpeed) //This function is for moving the player.
     {
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
     }
-    
+
     private void FixedUpdate()
     {
         //Have to test this code. (Activates Idle Animation)
