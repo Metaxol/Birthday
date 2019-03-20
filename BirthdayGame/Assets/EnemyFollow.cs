@@ -7,10 +7,24 @@ public class EnemyFollow : MonoBehaviour {
 
     private Vector3 LastPosition;
 
+    private LevelManagement GetLevelManagement;
+
     private void Awake()
     {
+        GetLevelManagement = FindObjectOfType<LevelManagement>();
         LastPosition = transform.position;
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player_Bullet")
+        {
+            GetLevelManagement.Enemies_Killed += 1;
+            this.gameObject.GetComponent<Animator>().Play("Enemy_Destroyed");
+            collision.gameObject.GetComponent<BulletController>().Destroy_Directly(0.3f);
+            Destroy(gameObject, 0.5f);
+        }
     }
 
     private void FixedUpdate()

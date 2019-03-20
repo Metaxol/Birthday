@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour {
         this.gameObject.GetComponent<Animator>().enabled = false;      
     }
 
-    private void Destroy_Directly(float DestroyIn)
+    public void Destroy_Directly(float DestroyIn)
     {
         this.gameObject.GetComponent<Animator>().enabled = true;
         BulletCanMov = false;

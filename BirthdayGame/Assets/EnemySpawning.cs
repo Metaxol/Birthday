@@ -2,8 +2,8 @@
 
 public class EnemySpawning : MonoBehaviour {
 
-    [HideInInspector] public GameObject Enemy;
-    [HideInInspector] public float SpawnRate;
+    public GameObject Enemy;
+    public float SpawnRate;
 
     void SpawnEnemies()
     {
