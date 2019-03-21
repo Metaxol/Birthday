@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyFollow : MonoBehaviour {
+public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
 
     public float EnemySpeed;
     private Transform Player;
@@ -8,6 +8,8 @@ public class EnemyFollow : MonoBehaviour {
     private Vector3 LastPosition;
 
     private LevelManagement GetLevelManagement;
+
+    public int Health;
 
     private void Awake()
     {
@@ -20,10 +22,14 @@ public class EnemyFollow : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player_Bullet")
         {
-            GetLevelManagement.Enemies_Killed += 1;
-            this.gameObject.GetComponent<Animator>().Play("Enemy_Destroyed");
             collision.gameObject.GetComponent<BulletController>().Destroy_Directly(0.3f);
-            Destroy(gameObject, 0.5f);
+            Health -= 1;
+            if(Health == 0)
+            {
+                GetLevelManagement.Enemies_Killed += 1;
+                this.gameObject.GetComponent<Animator>().Play("Enemy_Destroyed");
+                Destroy(gameObject, 0.5f);
+            }
         }
     }
 

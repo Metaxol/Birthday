@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        //Have to test this code. (Activates Idle Animation)
+        //Have to test this code. (Activates Idle Animation after having walked)
         Vector2 mag = PlayerRigidbody2D.velocity;
         if(mag.magnitude == 0) //Have to check on another PC if this is gonna work.
         {
