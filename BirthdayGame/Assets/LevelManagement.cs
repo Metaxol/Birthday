@@ -6,7 +6,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void Update()
     {
-        print(Enemies_Killed);
+        print(Enemies_Killed + "Enemies killed");
 
         switch (Enemies_Killed)
         {

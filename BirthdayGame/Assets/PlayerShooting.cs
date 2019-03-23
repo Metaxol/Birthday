@@ -39,7 +39,7 @@ public class PlayerShooting : MonoBehaviour {
             {
                 Shoot(new float[] { 0, 0, 0 }, new Vector3(0, 0.5f), 0.1f, 0f);
             }
-            else if (Input.GetKeyDown(KeyCode.D) && (GetPlayerMovement.gameObject.transform.position.x > GetPlayerMovement.LastPosition.x))
+            else if (Input.GetKeyDown(KeyCode.D) && (GetPlayerMovement.gameObject.GetComponent<SpriteRenderer>().flipX == false))
             {
                 Shoot(new float[] { 0, 0, -90 }, new Vector3(0.5f, 0), 0f, 0.1f);
             }
@@ -47,7 +47,7 @@ public class PlayerShooting : MonoBehaviour {
             {
                 Shoot(new float[] { 0, 0, -180 }, new Vector3(0, -0.5f), -0.1f, 0f);
             }
-            else if (Input.GetKeyDown(KeyCode.A) && (GetPlayerMovement.gameObject.transform.position.x < GetPlayerMovement.LastPosition.x))
+            else if (Input.GetKeyDown(KeyCode.A) && (GetPlayerMovement.gameObject.GetComponent<SpriteRenderer>().flipX == true))
             {
                 Shoot(new float[] { 0, 0, -270 }, new Vector3(-0.5f, 0), 0f, -0.1f);
             }

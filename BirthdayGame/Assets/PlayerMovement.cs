@@ -6,8 +6,7 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector] public Rigidbody2D PlayerRigidbody2D;
     [HideInInspector] public bool PlayerCanMove = true;
     [HideInInspector] public Animator PlayerAnimator;
-
-    [HideInInspector] public Vector3 LastPosition;
+    public float PlayerMovSpeed;
 
     private void Move_Player(float MoveSpeed) //This function is for moving the player.
     {
@@ -19,16 +18,14 @@ public class PlayerMovement : MonoBehaviour {
             PlayerRigidbody2D.velocity = new Vector3(x * MoveSpeed * Time.deltaTime, y * MoveSpeed * Time.deltaTime, 0);
             PlayerAnimator.SetBool("isWalking", true);
 
-            if (transform.position.x < LastPosition.x)
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                LastPosition.x = transform.position.x;
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
             }
 
-            else if (transform.position.x > LastPosition.x)
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                LastPosition.x = transform.position.x;
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
             }
         }
     }
@@ -43,13 +40,12 @@ public class PlayerMovement : MonoBehaviour {
         }
         //Test.
 
-        Move_Player(100f); //Parameter decides MoveSpeed.         
+        Move_Player(PlayerMovSpeed); //Parameter decides MoveSpeed.         
     }
     
     private void Awake()
     {
-        LastPosition = transform.position;
-        PlayerAnimator = this.gameObject.GetComponent<Animator>();
-        PlayerRigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+        PlayerAnimator = gameObject.GetComponent<Animator>();
+        PlayerRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 }

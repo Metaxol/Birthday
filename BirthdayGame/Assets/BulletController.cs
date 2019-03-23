@@ -12,12 +12,12 @@ public class BulletController : MonoBehaviour {
 
     private void Awake()
     {
-        this.gameObject.GetComponent<Animator>().enabled = false;      
+        gameObject.GetComponent<Animator>().enabled = false;      
     }
 
     public void Destroy_Directly(float DestroyIn)
     {
-        this.gameObject.GetComponent<Animator>().enabled = true;
+        gameObject.GetComponent<Animator>().enabled = true;
         BulletCanMov = false;
         Destroy(gameObject, DestroyIn);
     }

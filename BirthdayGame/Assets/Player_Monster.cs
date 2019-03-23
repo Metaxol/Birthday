@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player_Monster : MonoBehaviour {
 
     private PlayerMovement GetPlayerMovement;
     [HideInInspector] public bool Try_Again = false;
+    public int PlayerHealth;
+
+    private Text HealthText;
 
     private void Life_Function()
     {
@@ -28,6 +32,8 @@ public class Player_Monster : MonoBehaviour {
 
     private void Update()
     {
+        HealthText.text = "Health: " + PlayerHealth;
+
         if (Try_Again)
         {
             if (Input.GetKeyDown(KeyCode.U))
@@ -43,19 +49,25 @@ public class Player_Monster : MonoBehaviour {
 
     private void Awake()
     {
-        GetPlayerMovement = this.gameObject.GetComponent<PlayerMovement>();
+        HealthText = GameObject.Find("HealthText").GetComponent<Text>();
+        GetPlayerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private Collision2D OnCollisionEnter2D(Collision2D collision)
     {
         switch (collision.gameObject.tag)
         {
             case "Enemy":
-                Life_Function();
+                if(PlayerHealth > 0)
+                {
+                    GetPlayerMovement.PlayerAnimator.Play("Player_Hurt");
+                }
                 break;
             case "Items":
                 break;
         }
+
+        return collision;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -67,6 +79,29 @@ public class Player_Monster : MonoBehaviour {
                 break;
             case "Items":
                 break;
+        }
+    }
+
+    private void PlayerIsHurt()
+    {
+        //PlayerHealth -= 1;
+        GetPlayerMovement.PlayerCanMove = false;
+        GetPlayerMovement.PlayerRigidbody2D.velocity = Vector3.zero;
+        GetPlayerMovement.gameObject.GetComponent<Collider2D>().enabled = false;
+        GetPlayerMovement.PlayerAnimator.Play("Player_Hurt");
+    }
+
+    private void PlayerDoneHurt()
+    {
+        if (PlayerHealth == 0)
+        {
+            Life_Function();
+        }
+        else
+        {
+            GetPlayerMovement.PlayerCanMove = true;
+            GetPlayerMovement.gameObject.GetComponent<Collider2D>().enabled = true;
+            GetPlayerMovement.PlayerAnimator.Play("Player_Idle");
         }
     }
 }
