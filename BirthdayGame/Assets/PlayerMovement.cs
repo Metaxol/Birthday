@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     [HideInInspector] public Rigidbody2D PlayerRigidbody2D;
-    [HideInInspector] public bool PlayerCanMove = true;
+    public bool PlayerCanMove = true;
     [HideInInspector] public Animator PlayerAnimator;
     public float PlayerMovSpeed;
 

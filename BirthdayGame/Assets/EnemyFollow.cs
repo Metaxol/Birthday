@@ -10,7 +10,7 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
     private LevelManagement GetLevelManagement;
 
     public int Enemy_Health;
-    public int PlayerToEnemy_Damage = 1;
+    public static int PlayerToEnemy_Damage = 1;
     public int EnemyToPlayer_Damage = 1;
 
     private void Awake()

@@ -3,17 +3,18 @@ using System.Collections;
 
 public class PlayerShooting : MonoBehaviour {
 
-    [SerializeField] private GameObject Player_Bullets;
+    public GameObject Player_Bullets;
     public float BulletSpeed;
 
     private float Timestamp;
     public float cooldown = 2f;
+    public float Delay;
 
     private PlayerMovement GetPlayerMovement;
 
     [HideInInspector] public bool canShoot = true;
 
-    private void Shoot(float[] Rotation, Vector3 Position, float ySpeed, float xSpeed) //Add Vector3 spawnRotation and other stuff. (later)
+    private void Shoot(float[] Rotation, Vector3 Position, float ySpeed, float xSpeed)
     {
         if (Time.time > Timestamp)
         {
@@ -22,7 +23,7 @@ public class PlayerShooting : MonoBehaviour {
             bullet.GetComponent<BulletController>().changeRot(Rotation);
             bullet.GetComponent<BulletController>().ySpeed = ySpeed;
             bullet.GetComponent<BulletController>().xSpeed = xSpeed;
-            StartCoroutine(Delay_StopMov(1f));
+            StartCoroutine(Delay_StopMov(Delay));
         }
     }
 
@@ -37,19 +38,19 @@ public class PlayerShooting : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Shoot(new float[] { 0, 0, 0 }, new Vector3(0, 0.5f), 0.1f, 0f);
+                Shoot(new float[] { 0, 0, 0 }, new Vector3(0, 0.5f), BulletSpeed, 0f);
             }
             else if (Input.GetKeyDown(KeyCode.D) && (GetPlayerMovement.gameObject.GetComponent<SpriteRenderer>().flipX == false))
             {
-                Shoot(new float[] { 0, 0, -90 }, new Vector3(0.5f, 0), 0f, 0.1f);
+                Shoot(new float[] { 0, 0, -90 }, new Vector3(0.5f, 0), 0f, BulletSpeed);
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
-                Shoot(new float[] { 0, 0, -180 }, new Vector3(0, -0.5f), -0.1f, 0f);
+                Shoot(new float[] { 0, 0, -180 }, new Vector3(0, -0.5f), -BulletSpeed, 0f);
             }
             else if (Input.GetKeyDown(KeyCode.A) && (GetPlayerMovement.gameObject.GetComponent<SpriteRenderer>().flipX == true))
             {
-                Shoot(new float[] { 0, 0, -270 }, new Vector3(-0.5f, 0), 0f, -0.1f);
+                Shoot(new float[] { 0, 0, -270 }, new Vector3(-0.5f, 0), 0f, -BulletSpeed);
             }
         }
     }

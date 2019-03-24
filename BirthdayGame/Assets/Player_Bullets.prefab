@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439907246187896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1778864, y: 2.42, z: 0}
-  m_LocalScale: {x: 1.8263521, y: 2.8991446, z: 1}
+  m_LocalPosition: {x: -0.53736484, y: 2.1193483, z: 0}
+  m_LocalScale: {x: 2, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   xSpeed: 0
   ySpeed: 0
   DestroyTime: 1
+  BulletRange: 0.5
 --- !u!212 &212542052171808422
 SpriteRenderer:
   m_ObjectHideFlags: 1

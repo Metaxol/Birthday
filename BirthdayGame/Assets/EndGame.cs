@@ -7,6 +7,8 @@ public class EndGame : MonoBehaviour {
     private Text End_Text;
     private Player_Monster GetPlayer_Monster;
 
+    private LevelManagement GetLevelManagement;
+
     private void EndGame_Text() //This is lidl code. (Make it better, maybe)
     {
         foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -21,13 +23,21 @@ public class EndGame : MonoBehaviour {
 
     private void Awake()
     {
+        GetLevelManagement = FindObjectOfType<LevelManagement>();
         EndGame_Text();
         GetPlayer_Monster = FindObjectOfType<Player_Monster>();
     }
 
     private void PlayEndText()
     {
-        StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!"));
+        if(GetLevelManagement.Enemies_Killed == 1)
+        {
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemy!"));
+        }
+        else
+        {
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemies!"));
+        }
     }
 
     private void ChooseOption()

@@ -10,6 +10,8 @@ public class BulletController : MonoBehaviour {
 
     private bool BulletCanMov = true;
 
+    public static float BulletRange = 0.5f;
+
     private void Awake()
     {
         gameObject.GetComponent<Animator>().enabled = false;      
@@ -61,6 +63,6 @@ public class BulletController : MonoBehaviour {
     private IEnumerator DestroyBullet()
     {      
         yield return new WaitForSeconds(DestroyTime);
-        Destroy_Directly(0.5f);
+        Destroy_Directly(BulletRange);
     }
 }

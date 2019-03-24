@@ -2,7 +2,8 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Player_Monster : MonoBehaviour {
+public class Player_Monster : MonoBehaviour
+{
 
     private PlayerMovement GetPlayerMovement;
     [HideInInspector] public bool Try_Again = false;
@@ -21,9 +22,9 @@ public class Player_Monster : MonoBehaviour {
 
     private void Call_EndGame()
     {
-        foreach(GameObject x in  Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            if(x.name == "Panel" || x.name == "TryAgain_Quit")
+            if (x.name == "Panel" || x.name == "TryAgain_Quit")
             {
                 x.SetActive(true);
             }
@@ -32,7 +33,15 @@ public class Player_Monster : MonoBehaviour {
 
     private void Update()
     {
-        HealthText.text = "Health: " + PlayerHealth;
+        if(PlayerHealth > 0)
+        {
+            HealthText.text = "Health: " + PlayerHealth;
+        }
+        else if (PlayerHealth <= 0)
+        {
+            Life_Function();
+            HealthText.text = "Health: " + 0;
+        }
 
         if (Try_Again)
         {
@@ -58,7 +67,7 @@ public class Player_Monster : MonoBehaviour {
         switch (collision.gameObject.tag)
         {
             case "Enemy":
-                if(PlayerHealth > 0)
+                if (PlayerHealth > 0)
                 {
                     GetPlayerMovement.PlayerAnimator.Play("Player_Hurt");
                 }
@@ -84,7 +93,6 @@ public class Player_Monster : MonoBehaviour {
 
     private void PlayerIsHurt()
     {
-        //PlayerHealth -= 1;
         GetPlayerMovement.PlayerCanMove = false;
         GetPlayerMovement.PlayerRigidbody2D.velocity = Vector3.zero;
         GetPlayerMovement.gameObject.GetComponent<Collider2D>().enabled = false;
@@ -93,11 +101,7 @@ public class Player_Monster : MonoBehaviour {
 
     private void PlayerDoneHurt()
     {
-        if (PlayerHealth == 0)
-        {
-            Life_Function();
-        }
-        else
+        if (PlayerHealth != 0)
         {
             GetPlayerMovement.PlayerCanMove = true;
             GetPlayerMovement.gameObject.GetComponent<Collider2D>().enabled = true;
