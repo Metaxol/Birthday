@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class LevelManagement : MonoBehaviour {
 
@@ -20,13 +21,98 @@ public class LevelManagement : MonoBehaviour {
     {
         switch (Enemies_Killed)
         {
-
+            case 2:
+                ChoosingUpgrade();
+                break;
         }
     }
 
-    private void ChoosingUpgrade()
+    private void ChoosingUpgrade() //This is absolute lidl code, not gonna work at all. (Have to work on it, definitely!)
     {
+        foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+        {
+            if (x.name == "UpgradeHolder" || x.name == "Panel")
+            {
+                Time.timeScale = 0;
+                x.SetActive(true);
 
+                if (x.activeInHierarchy)
+                {
+                    int choosing = 0;
+
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        choosing -= 1;
+                        if (choosing < 0)
+                        {
+                            choosing = 0;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        choosing += 1;
+                        if (choosing > 5)
+                        {
+                            choosing = 5;
+                        }
+                    }
+                    print(choosing);
+                }
+            }
+        }
+        
+        /*
+        int choosing = 0;
+
+        #region Choosing Method for Upgrades.
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            choosing -= 1;
+            if (choosing < 0)
+            {
+                choosing = 0;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            choosing += 1;
+            if (choosing > 5)
+            {
+                choosing = 5;
+            }
+        }
+        #endregion
+
+        foreach (GameObject i in FindObjectsOfType<GameObject>())
+        {
+            List<GameObject> upgradePlace = new List<GameObject>();
+
+            if (i.gameObject.name == "UpgradeHolder_Tiles")
+            {
+                upgradePlace.Add(i.gameObject);
+
+                for (int c = 0; c < upgradePlace.Count; c++)
+                {
+                    if (upgradePlace.IndexOf(upgradePlace[c]) == choosing)
+                    {
+                        upgradePlace[c].GetComponent<Image>().color = Color.green;
+
+                        if (upgradePlace[c].GetComponent<Image>().color == Color.green && Input.GetKeyDown(KeyCode.Return))
+                        {
+                            switch (upgradePlace[c].transform.GetChild(0).name)
+                            {
+                                case "HealthUp":
+                                    print("Your health increased!");
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+        */
     }
 
     #region Use these functions to upgrade the Player's Attributes.
