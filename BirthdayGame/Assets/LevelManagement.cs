@@ -10,6 +10,8 @@ public class LevelManagement : MonoBehaviour {
     private Player_Monster GetPlayer_Monster;
     private PlayerMovement GetPlayerMovement;
 
+    int choosing;
+
     private void Awake()
     {
         GetPlayerShooting = FindObjectOfType<PlayerShooting>();
@@ -38,24 +40,7 @@ public class LevelManagement : MonoBehaviour {
 
                 if (x.activeInHierarchy)
                 {
-                    int choosing = 0;
-
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                        choosing -= 1;
-                        if (choosing < 0)
-                        {
-                            choosing = 0;
-                        }
-                    }
-                    else if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        choosing += 1;
-                        if (choosing > 5)
-                        {
-                            choosing = 5;
-                        }
-                    }
+                    increase();
                     print(choosing);
                 }
             }
@@ -113,6 +98,26 @@ public class LevelManagement : MonoBehaviour {
     }
 }
         */
+    }
+
+    void increase()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            choosing -= 1;
+            if (choosing < 0)
+            {
+                choosing = 0;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            choosing += 1;
+            if (choosing > 5)
+            {
+                choosing = 5;
+            }
+        }
     }
 
     #region Use these functions to upgrade the Player's Attributes.
