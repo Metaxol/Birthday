@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class LevelManagement : MonoBehaviour {
@@ -12,8 +11,29 @@ public class LevelManagement : MonoBehaviour {
 
     int choosing;
 
+    private GameObject UpgradeHolder;
+    [SerializeField] private List<GameObject> UpgradeSprites = new List<GameObject>();
+
     private void Awake()
     {
+        foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+        {
+            if (i.gameObject.name == "UpgradeHolder_Tiles")
+            {
+                UpgradeSprites.Add(i.gameObject);
+            }
+        }
+
+        for(int c = 0; c < UpgradeSprites.Count; c++)
+        {
+            switch (c)
+            {
+                case 0:
+                    //UpgradeSprites[c]
+                    break;
+            }
+        }
+
         GetPlayerShooting = FindObjectOfType<PlayerShooting>();
         GetPlayer_Monster = FindObjectOfType<Player_Monster>();
         GetPlayerMovement = FindObjectOfType<PlayerMovement>();
@@ -21,6 +41,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void Update()
     {
+        //print(choosing);
         switch (Enemies_Killed)
         {
             case 2:
@@ -35,90 +56,36 @@ public class LevelManagement : MonoBehaviour {
         {
             if (x.name == "UpgradeHolder" || x.name == "Panel")
             {
-                Time.timeScale = 0;
+                UpgradeHolder = x;
+                UpgradeHolder.SetActive(true);
+            }
+            else if(x.name == "Panel")
+            {
                 x.SetActive(true);
+            }
+            Time.timeScale = 0;
+        }
 
-                if (x.activeInHierarchy)
+        if (UpgradeHolder.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                choosing -= 1;
+                if (choosing < 0)
                 {
-                    increase();
-                    print(choosing);
+                    choosing = 0;
                 }
             }
-        }
-        
-        /*
-        int choosing = 0;
-
-        #region Choosing Method for Upgrades.
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            choosing -= 1;
-            if (choosing < 0)
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                choosing = 0;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            choosing += 1;
-            if (choosing > 5)
-            {
-                choosing = 5;
-            }
-        }
-        #endregion
-
-        foreach (GameObject i in FindObjectsOfType<GameObject>())
-        {
-            List<GameObject> upgradePlace = new List<GameObject>();
-
-            if (i.gameObject.name == "UpgradeHolder_Tiles")
-            {
-                upgradePlace.Add(i.gameObject);
-
-                for (int c = 0; c < upgradePlace.Count; c++)
+                choosing += 1;
+                if (choosing > 6)
                 {
-                    if (upgradePlace.IndexOf(upgradePlace[c]) == choosing)
-                    {
-                        upgradePlace[c].GetComponent<Image>().color = Color.green;
-
-                        if (upgradePlace[c].GetComponent<Image>().color == Color.green && Input.GetKeyDown(KeyCode.Return))
-                        {
-                            switch (upgradePlace[c].transform.GetChild(0).name)
-                            {
-                                case "HealthUp":
-                                    print("Your health increased!");
-                                    break;
-                            }
-                        }
-                    }
+                    choosing = 6;
                 }
             }
-        }
-    }
-}
-        */
-    }
-
-    void increase()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            choosing -= 1;
-            if (choosing < 0)
-            {
-                choosing = 0;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            choosing += 1;
-            if (choosing > 5)
-            {
-                choosing = 5;
-            }
-        }
-    }
+        }       
+    }           
 
     #region Use these functions to upgrade the Player's Attributes.
     private void UpgradingSize(Vector3 increaseBulletSize)
