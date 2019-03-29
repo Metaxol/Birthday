@@ -4691,6 +4691,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1000758835}
   - component: {fileID: 1000758834}
+  - component: {fileID: 1000758836}
+  - component: {fileID: 1000758837}
   m_Layer: 0
   m_Name: UpgradeHolder
   m_TagString: Untagged
@@ -4722,7 +4724,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1000758833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.08, y: 4.81, z: -0.01855469}
+  m_LocalPosition: {x: 16.08, y: 8.899996, z: -0.01855469}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1010444755}
@@ -4736,6 +4738,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000758836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1000758833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7088139d8d9c65a40ac31a7130f58735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Control: 0
+--- !u!111 &1000758837
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1000758833}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c66743700e3d6a54da9fe0566d6d0427, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1010444754
 GameObject:
   m_ObjectHideFlags: 0
@@ -7344,6 +7372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies_Killed: 0
+  Panel: {fileID: 0}
   UpgradeSprites: []
 --- !u!4 &1485596180
 Transform:

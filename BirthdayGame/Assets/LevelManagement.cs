@@ -8,35 +8,39 @@ public class LevelManagement : MonoBehaviour {
     private PlayerShooting GetPlayerShooting;
     private Player_Monster GetPlayer_Monster;
     private PlayerMovement GetPlayerMovement;
+    private GoBack GetGoBack;
 
     int choosing;
 
     private GameObject UpgradeHolder;
+    [HideInInspector] public GameObject Panel;
     [SerializeField] private List<GameObject> UpgradeSprites = new List<GameObject>();
 
     private void Awake()
     {
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
-            if (i.gameObject.name == "UpgradeHolder_Tiles")
+            if (i.name == "UpgradeHolder_Tiles")
             {
                 UpgradeSprites.Add(i.gameObject);
-            }
-        }
 
-        for(int c = 0; c < UpgradeSprites.Count; c++)
-        {
-            switch (c)
+                /* 0 = Damage
+                 * 1 = Health
+                 * 2 = ReduceTime
+                 * 3 = IncreaseBulletSize
+                 * 4 = IncreaseBulletSpeed/Range
+                 * 5 = IncreasePlayerSpeed
+                 */
+            }
+            else if (i.gameObject.name == "UpgradeHolder")
             {
-                case 0:
-                    //UpgradeSprites[c]
-                    break;
+                GetGoBack = i.GetComponent<GoBack>();
             }
         }
 
         GetPlayerShooting = FindObjectOfType<PlayerShooting>();
         GetPlayer_Monster = FindObjectOfType<Player_Monster>();
-        GetPlayerMovement = FindObjectOfType<PlayerMovement>();
+        GetPlayerMovement = FindObjectOfType<PlayerMovement>();      
     }
 
     private void Update()
@@ -61,7 +65,8 @@ public class LevelManagement : MonoBehaviour {
             }
             else if(x.name == "Panel")
             {
-                x.SetActive(true);
+                Panel = x;
+                Panel.SetActive(true);
             }
             Time.timeScale = 0;
         }
@@ -71,9 +76,9 @@ public class LevelManagement : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 choosing -= 1;
-                if (choosing < 0)
+                if (choosing < 1)
                 {
-                    choosing = 0;
+                    choosing = 1;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -84,8 +89,51 @@ public class LevelManagement : MonoBehaviour {
                     choosing = 6;
                 }
             }
+
+            foreach(GameObject c in UpgradeSprites)
+            {
+                if(c.transform.GetSiblingIndex() == choosing)
+                {
+                    c.GetComponent<SpriteRenderer>().color = Color.black;
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        switch (choosing)
+                        {
+                            case 1:
+                                print("Your health increased!");
+                                GetGoBack.Control = 1;
+                                break;
+                            case 2:
+                                print("Your speed increased!");
+                                break;
+                            case 3:
+                                print("Time Reduced");
+                                break;
+                            case 4:
+                                print("Faster Bullets");
+                                break;
+                            case 5:
+                                print("Damage increased!");
+                                break;
+                            case 6:
+                                print("Bigger bullets!");
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    c.GetComponent<SpriteRenderer>().color = new Color(193f, 193f, 193f, 255);
+                }
+            }
         }       
     }           
+
+    void UpgradeChosen()
+    {
+        //UpgradeHolder.SetActive(false);
+        Panel.SetActive(false);
+    }
 
     #region Use these functions to upgrade the Player's Attributes.
     private void UpgradingSize(Vector3 increaseBulletSize)
