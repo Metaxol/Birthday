@@ -32,11 +32,11 @@ public class EndGame : MonoBehaviour {
     {
         if(GetLevelManagement.Enemies_Killed == 1)
         {
-            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemy!"));
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemy!", End_Text));
         }
         else
         {
-            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemies!"));
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemies!", End_Text));
         }
     }
 
@@ -45,17 +45,17 @@ public class EndGame : MonoBehaviour {
         GetPlayer_Monster.Try_Again = true;
     }
 
-    private IEnumerator TextScroll(string lineOfText)
+    public IEnumerator TextScroll(string lineOfText, Text text)
     {
         int letter = 0;
-        End_Text.text = "";
+        text.text = "";
         while (letter < lineOfText.Length - 1)
         {
-            End_Text.text += lineOfText[letter];
+            text.text += lineOfText[letter];
             letter += 1;
             //Play sound when the text is scrolling.
             yield return new WaitForSeconds(0);
         }
-        End_Text.text = lineOfText;
+        text.text = lineOfText;
     }   
 }

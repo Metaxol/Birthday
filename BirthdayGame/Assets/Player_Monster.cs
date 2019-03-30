@@ -7,9 +7,11 @@ public class Player_Monster : MonoBehaviour
 
     private PlayerMovement GetPlayerMovement;
     [HideInInspector] public bool Try_Again = false;
-    public int PlayerHealth;
+    public float PlayerHealth;
 
     private Text HealthText;
+
+    private LevelManagement GetLevelManagement;
 
     private void Life_Function()
     {
@@ -47,7 +49,8 @@ public class Player_Monster : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.U))
             {
-                SceneManager.LoadScene("Level_Scene");
+                GetLevelManagement.ResetVariables();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             else if (Input.GetKeyDown(KeyCode.I))
             {
@@ -58,6 +61,7 @@ public class Player_Monster : MonoBehaviour
 
     private void Awake()
     {
+        GetLevelManagement = FindObjectOfType<LevelManagement>();
         HealthText = GameObject.Find("HealthText").GetComponent<Text>();
         GetPlayerMovement = gameObject.GetComponent<PlayerMovement>();
     }

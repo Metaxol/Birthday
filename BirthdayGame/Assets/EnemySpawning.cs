@@ -1,34 +1,31 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemySpawning : MonoBehaviour {
 
     public GameObject Enemy;
-    public float SpawnRate;
+    private float SpawnRate;
 
-    public int EagleDamage;
-    public int OpossumDamage;
-    public int FrogDamage;
-
-    public int EagleHealth;
-    public int OpossumHealth;
-    public int FrogHealth;
-
-    public float EagleSpeed;
-    public float OpossumSpeed;
-    public float FrogSpeed;
-
-    public float EagleSpawnRate;
-    public float FrogSpawnRate;
-    public float OpossumSpawnRate;
+    static public float[] EagleStuff = new float[4]; //Spawn, Damage, Health, Speed
+    static public float[] FrogStuff = new float[4];
+    static public float[] OpossumStuff = new float[4];
 
     void SpawnEnemies()
     {
         Instantiate(Enemy, transform.position, transform.rotation);
     }
 
+    private void Update()
+    {
+        SetHarderGettingStuff();
+    }
+
     private void Start()
     {
-        InvokeRepeating("SpawnEnemies", 1f, SpawnRate);
+        EagleStuff = new float[] { 8f, 1, 1, 1f };
+        FrogStuff = new float[] { 8, 1, 2, 0.25f };
+        OpossumStuff = new float[] { 8, 2, 1, 0.25f };
+        StartCoroutine(Spawn());
     }
 
     void SetHarderGettingStuff()
@@ -36,21 +33,33 @@ public class EnemySpawning : MonoBehaviour {
         switch (Enemy.name)
         {
             case "Eagle":
-                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = EagleDamage;
-                Enemy.GetComponent<EnemyFollow>().Enemy_Health = EagleHealth;
-                Enemy.GetComponent<EnemyFollow>().EnemySpeed = EagleSpeed;
+                SpawnRate = EagleStuff[0];
+                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = EagleStuff[1];
+                Enemy.GetComponent<EnemyFollow>().Enemy_Health = EagleStuff[2];
+                Enemy.GetComponent<EnemyFollow>().EnemySpeed = EagleStuff[3];
                 
                 break;
             case "Frog":
-                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = FrogDamage;
-                Enemy.GetComponent<EnemyFollow>().Enemy_Health = FrogHealth;
-                Enemy.GetComponent<EnemyFollow>().EnemySpeed = FrogSpeed;
+                SpawnRate = FrogStuff[0];
+                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = FrogStuff[1];
+                Enemy.GetComponent<EnemyFollow>().Enemy_Health = FrogStuff[2];
+                Enemy.GetComponent<EnemyFollow>().EnemySpeed = FrogStuff[3];
                 break;
             case "Opossum":
-                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = OpossumDamage;
-                Enemy.GetComponent<EnemyFollow>().Enemy_Health = OpossumHealth;
-                Enemy.GetComponent<EnemyFollow>().EnemySpeed = OpossumSpeed;
+                SpawnRate = OpossumStuff[0];
+                Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = OpossumStuff[1];
+                Enemy.GetComponent<EnemyFollow>().Enemy_Health = OpossumStuff[2];
+                Enemy.GetComponent<EnemyFollow>().EnemySpeed = OpossumStuff[3];
                 break;
+        }
+    }
+
+    private IEnumerator Spawn()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(SpawnRate);
+            SpawnEnemies();
         }
     }
 }
