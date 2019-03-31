@@ -25,7 +25,7 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
         if(collision.gameObject.tag == "Player_Bullet")
         {
             Enemy_Health -= PlayerToEnemy_Damage;
-            if(Enemy_Health == 0)
+            if(Enemy_Health <= 0)
             {
                 GetLevelManagement.Enemies_Killed += 1;
                 DestroyEnemy();

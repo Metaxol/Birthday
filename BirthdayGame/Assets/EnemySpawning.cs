@@ -22,9 +22,9 @@ public class EnemySpawning : MonoBehaviour {
 
     private void Start()
     {
-        EagleStuff = new float[] { 8f, 1, 1, 1f };
+        EagleStuff = new float[] { 8, 1, 1, 0.7f };
         FrogStuff = new float[] { 8, 1, 2, 0.25f };
-        OpossumStuff = new float[] { 8, 2, 1, 0.25f };
+        OpossumStuff = new float[] { 8, 2, 1, 0.5f };
         StartCoroutine(Spawn());
     }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class LevelManagement : MonoBehaviour {
@@ -20,6 +21,9 @@ public class LevelManagement : MonoBehaviour {
     [SerializeField] private List<GameObject> UpgradeSprites = new List<GameObject>();
 
     private bool Control;
+
+    private GameObject EnemSpawner1;
+    private GameObject EnemSpawner2;
 
     public void ResetVariables()
     {
@@ -61,6 +65,12 @@ public class LevelManagement : MonoBehaviour {
             else if(i.name == "Panel")
             {
                 Panel = i;
+            }else if(i.name == "EnemySpawner (1)")
+            {
+                EnemSpawner1 = i;
+            }else if(i.name == "EnemySpawner (2)")
+            {
+                EnemSpawner2 = i;
             }
         }
 
@@ -69,8 +79,14 @@ public class LevelManagement : MonoBehaviour {
         GetPlayerMovement = FindObjectOfType<PlayerMovement>();       
     }
 
+    private void Start()
+    {
+        StartCoroutine(StrengthenEnemies());
+    }
+
     private void Update()
     {
+        print(EnemySpawning.EagleStuff[2]);
         switch (Enemies_Killed)
         {
             case 2:
@@ -83,13 +99,7 @@ public class LevelManagement : MonoBehaviour {
                 ChoosingUpgrade(false, true);
                 break;
             case 10:
-                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
-                {
-                    if(i.name == "EnemySpawner (1)")
-                    {
-                        i.SetActive(true);
-                    }
-                }
+                EnemSpawner1.SetActive(true);
                 break;
             case 11:
                 ChoosingUpgrade(true, false);
@@ -98,16 +108,11 @@ public class LevelManagement : MonoBehaviour {
                 ChoosingUpgrade(false, true);
                 break;
             case 20:
-                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
-                {
-                    if (i.name == "EnemySpawner (2)")
-                    {
-                        i.SetActive(true);
-                    }
-                }
+                ChoosingUpgrade(true, false);
+                EnemSpawner2.SetActive(true);
                 break;
             case 30:
-                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject))) //This is special, need another script for it.
                 {
                     if (i.name == "EnemySpawner (3)")
                     {
@@ -153,22 +158,22 @@ public class LevelManagement : MonoBehaviour {
                             switch ((int)choosing)
                             {
                                 case 1:
-                                    UpgradeHealth(1);
+                                    UpgradeHealth(2);
                                     print("Your health increased!");
                                     StopAndContinue(newBool);
                                     break;
                                 case 2:
-                                    UpgradePlayerSpeed(10f);
+                                    UpgradePlayerSpeed(15f);
                                     print("Your speed increased!");
                                     StopAndContinue(newBool);
                                     break;
                                 case 3:
-                                    ReduceTime(0.2f, 0.1f);
+                                    ReduceTime(0.4f, 0.2f);
                                     print("Time Reduced");
                                     StopAndContinue(newBool);
                                     break;
                                 case 4:
-                                    UpgradeBulletSpeed_Range(0.05f, 0.02f);
+                                    UpgradeBulletSpeed_Range(0.1f, 0.04f);
                                     print("Faster Bullets");
                                     StopAndContinue(newBool);
                                     break;
@@ -251,4 +256,85 @@ public class LevelManagement : MonoBehaviour {
         //Do 0.1 - steps (normal)
     }
     #endregion
+
+    #region Use these Functions to upgrade Enemy Attributes. 
+    private void StrengthenEagle(float addToEagleSpawnRate, float addToEagleDamage, float addToEagleHealth)
+    {
+        if (GameObject.Find("EnemySpawner").activeInHierarchy) {
+            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
+            {
+                switch (c)
+                {
+                    case 0:
+                        EnemySpawning.EagleStuff[c] += addToEagleSpawnRate;
+                        break;
+                    case 1:
+                        EnemySpawning.EagleStuff[c] += addToEagleDamage;
+                        break;
+                    case 2:
+                        EnemySpawning.EagleStuff[c] += addToEagleHealth;
+                        break;
+                }
+            }
+        }
+    }
+
+    private void StrengthenFrog(float addToFrogSpawnRate, float addToFrogDamage, float addToFrogHealth)
+    {
+        if (EnemSpawner1.activeInHierarchy)
+        {
+            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
+            {
+                switch (c)
+                {
+                    case 0:
+                        EnemySpawning.EagleStuff[c] += addToFrogSpawnRate;
+                        break;
+                    case 1:
+                        EnemySpawning.EagleStuff[c] += addToFrogDamage;
+                        break;
+                    case 2:
+                        EnemySpawning.EagleStuff[c] += addToFrogHealth;
+                        break;
+                }
+            }
+        }
+    }
+
+    private void StrengthenOpossum(float addToOpossumSpawnRate, float addToOpossumDamage, float addToOpossumHealth)
+    {
+        if (EnemSpawner2.activeInHierarchy)
+        {
+            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
+            {
+                switch (c)
+                {
+                    case 0:
+                        EnemySpawning.EagleStuff[c] += addToOpossumSpawnRate;
+                        break;
+                    case 1:
+                        EnemySpawning.EagleStuff[c] += addToOpossumDamage;
+                        break;
+                    case 2:
+                        EnemySpawning.EagleStuff[c] += addToOpossumHealth;
+                        break;
+                }
+            }
+        }
+    }
+    #endregion
+
+    private IEnumerator StrengthenEnemies()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5f);
+            if (!UpgradeHolder.activeInHierarchy)
+            {
+                StrengthenEagle(-0.05f, 0.05f, 0.05f);
+                StrengthenFrog(-0.05f, 0.05f, 0.1f);
+                StrengthenOpossum(-0.05f, 0.1f, 0.05f);
+            }
+        }
+    }
 }
