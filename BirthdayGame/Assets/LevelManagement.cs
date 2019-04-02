@@ -81,12 +81,12 @@ public class LevelManagement : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(StrengthenEnemies());
+        StartCoroutine(Strengthen_Enemies(EnemySpawning.EagleStuff[0], EnemySpawning.FrogStuff[0], EnemySpawning.OpossumStuff[0], -0.05f, -0.05f, -0.05f));
     }
 
     private void Update()
     {
-        print(EnemySpawning.EagleStuff[2]);
+        print(EnemySpawning.EagleStuff[0]);
         switch (Enemies_Killed)
         {
             case 2:
@@ -258,83 +258,32 @@ public class LevelManagement : MonoBehaviour {
     #endregion
 
     #region Use these Functions to upgrade Enemy Attributes. 
-    private void StrengthenEagle(float addToEagleSpawnRate, float addToEagleDamage, float addToEagleHealth)
+    private void LidlFinderSpawner(float Eagle, float Frog, float Opossum, float increaseEagle, float increaseFrog, float increaseOpossum)
     {
-        if (GameObject.Find("EnemySpawner").activeInHierarchy) {
-            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
-            {
-                switch (c)
-                {
-                    case 0:
-                        EnemySpawning.EagleStuff[c] += addToEagleSpawnRate;
-                        break;
-                    case 1:
-                        EnemySpawning.EagleStuff[c] += addToEagleDamage;
-                        break;
-                    case 2:
-                        EnemySpawning.EagleStuff[c] += addToEagleHealth;
-                        break;
-                }
-            }
-        }
-    }
-
-    private void StrengthenFrog(float addToFrogSpawnRate, float addToFrogDamage, float addToFrogHealth)
-    {
-        if (EnemSpawner1.activeInHierarchy)
+        foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
-            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
+            if (i.name == "EnemySpawner" && i.activeInHierarchy)
             {
-                switch (c)
+                Eagle += increaseEagle;
+                if(i.name == "EnemySpawner (1)" && i.activeInHierarchy)
                 {
-                    case 0:
-                        EnemySpawning.EagleStuff[c] += addToFrogSpawnRate;
-                        break;
-                    case 1:
-                        EnemySpawning.EagleStuff[c] += addToFrogDamage;
-                        break;
-                    case 2:
-                        EnemySpawning.EagleStuff[c] += addToFrogHealth;
-                        break;
-                }
-            }
-        }
-    }
-
-    private void StrengthenOpossum(float addToOpossumSpawnRate, float addToOpossumDamage, float addToOpossumHealth)
-    {
-        if (EnemSpawner2.activeInHierarchy)
-        {
-            for (int c = 0; c < EnemySpawning.EagleStuff.Length; c++)
-            {
-                switch (c)
-                {
-                    case 0:
-                        EnemySpawning.EagleStuff[c] += addToOpossumSpawnRate;
-                        break;
-                    case 1:
-                        EnemySpawning.EagleStuff[c] += addToOpossumDamage;
-                        break;
-                    case 2:
-                        EnemySpawning.EagleStuff[c] += addToOpossumHealth;
-                        break;
+                    Frog += increaseFrog;
+                    if(i.name == "EnemySpawner (2)" && i.activeInHierarchy)
+                    {
+                        Opossum += increaseOpossum;
+                    }
                 }
             }
         }
     }
     #endregion
 
-    private IEnumerator StrengthenEnemies()
+    private IEnumerator Strengthen_Enemies(float Eagle, float Frog, float Opossum, float increaseEagle, float increaseFrog, float increaseOpossum)
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
-            if (!UpgradeHolder.activeInHierarchy)
-            {
-                StrengthenEagle(-0.05f, 0.05f, 0.05f);
-                StrengthenFrog(-0.05f, 0.05f, 0.1f);
-                StrengthenOpossum(-0.05f, 0.1f, 0.05f);
-            }
+            yield return new WaitForSeconds(1f);
+            LidlFinderSpawner(Eagle, Frog, Opossum, increaseEagle, increaseFrog, increaseOpossum);
         }
-    }
+    }   
 }
