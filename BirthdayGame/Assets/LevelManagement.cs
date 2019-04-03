@@ -81,12 +81,14 @@ public class LevelManagement : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(Strengthen_Enemies(EnemySpawning.EagleStuff[0], EnemySpawning.FrogStuff[0], EnemySpawning.OpossumStuff[0], -0.05f, -0.05f, -0.05f));
+        StartCoroutine(Strengthen_Enemies(5f, 0, -0.05f, -0.05f, -0.05f));
+        StartCoroutine(Strengthen_Enemies(20f, 1, 1f, 1f, 2f));
+        StartCoroutine(Strengthen_Enemies(15f, 2, 1f, 2f, 1f));
+        StartCoroutine(Strengthen_Enemies(10f, 3, 0.08f, 0.05f, 0.05f));
     }
 
     private void Update()
     {
-        print(EnemySpawning.EagleStuff[0]);
         switch (Enemies_Killed)
         {
             case 2:
@@ -258,19 +260,19 @@ public class LevelManagement : MonoBehaviour {
     #endregion
 
     #region Use these Functions to upgrade Enemy Attributes. 
-    private void LidlFinderSpawner(float Eagle, float Frog, float Opossum, float increaseEagle, float increaseFrog, float increaseOpossum)
+    private void LidlFinderSpawner(int Attr, float increaseEagle, float increaseFrog, float increaseOpossum)
     {
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
             if (i.name == "EnemySpawner" && i.activeInHierarchy)
             {
-                Eagle += increaseEagle;
+                EnemySpawning.EagleStuff[Attr] += increaseEagle;
                 if(i.name == "EnemySpawner (1)" && i.activeInHierarchy)
                 {
-                    Frog += increaseFrog;
+                    EnemySpawning.FrogStuff[Attr] += increaseFrog;
                     if(i.name == "EnemySpawner (2)" && i.activeInHierarchy)
                     {
-                        Opossum += increaseOpossum;
+                        EnemySpawning.OpossumStuff[Attr] += increaseOpossum;
                     }
                 }
             }
@@ -278,12 +280,12 @@ public class LevelManagement : MonoBehaviour {
     }
     #endregion
 
-    private IEnumerator Strengthen_Enemies(float Eagle, float Frog, float Opossum, float increaseEagle, float increaseFrog, float increaseOpossum)
+    private IEnumerator Strengthen_Enemies(float TimeUpgrade, int Attribute, float increaseEagle, float increaseFrog, float increaseOpossum)
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
-            LidlFinderSpawner(Eagle, Frog, Opossum, increaseEagle, increaseFrog, increaseOpossum);
+            yield return new WaitForSeconds(TimeUpgrade);
+            LidlFinderSpawner(Attribute, increaseEagle, increaseFrog, increaseOpossum);
         }
     }   
 }

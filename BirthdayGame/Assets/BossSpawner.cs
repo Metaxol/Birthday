@@ -33,14 +33,20 @@ public class BossSpawner : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(20f);
-            EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-            EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+            if (gameObject.activeInHierarchy)
+            {
+                EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+                EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+                EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
 
-            OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-            OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+                OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+                OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+                OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
 
-            FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-            FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;           
+                FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+                FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+                FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
+            }
         }
     }
 }
