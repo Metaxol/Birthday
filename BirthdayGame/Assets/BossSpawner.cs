@@ -28,6 +28,16 @@ public class BossSpawner : MonoBehaviour {
         StartCoroutine(IncreaseBoss());
     }
 
+    private void SpawnEnemy()
+    {
+        float random = Random.Range(1f, 3f);
+
+        if(random == 1)
+        {
+            
+        }
+    }
+
     private IEnumerator IncreaseBoss()
     {
         while (true)
