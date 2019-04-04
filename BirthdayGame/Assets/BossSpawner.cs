@@ -26,15 +26,54 @@ public class BossSpawner : MonoBehaviour {
         FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = 2;
 
         StartCoroutine(IncreaseBoss());
+        StartCoroutine(Spawning());
     }
 
     private void SpawnEnemy()
     {
         float random = Random.Range(1f, 3f);
 
-        if(random == 1)
+        if (gameObject.activeInHierarchy)
         {
-            
+            if (random == 1)
+            {
+                Instantiate(EagleBoss, transform.position, transform.rotation);
+            }
+            else if (random == 2)
+            {
+                Instantiate(OpossumBoss, transform.position, transform.rotation);
+            }
+            else if (random == 3)
+            {
+                Instantiate(FrogBoss, transform.position, transform.rotation);
+            }
+        }
+    }
+
+    private IEnumerator Spawning()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(15f);
+            SpawnEnemy();
+        }
+    }
+    
+    private void UpgradeBoss()
+    {
+        if (gameObject.activeInHierarchy)
+        {
+            EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+            EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+            EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
+
+            OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+            OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+            OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
+
+            FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
+            FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
+            FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
         }
     }
 
@@ -43,20 +82,7 @@ public class BossSpawner : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(20f);
-            if (gameObject.activeInHierarchy)
-            {
-                EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-                EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
-                EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
-
-                OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-                OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
-                OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
-
-                FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1;
-                FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1;
-                FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f;
-            }
+            UpgradeBoss();
         }
     }
 }
