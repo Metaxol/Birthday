@@ -7,8 +7,22 @@ public class BossSpawner : MonoBehaviour {
     public GameObject OpossumBoss;
     public GameObject FrogBoss;
 
+    private LevelManagement GetLevelManagement;
+
+    private float BossSpawnTime = 15f;
+
+    private void Update()
+    {
+        if (GetLevelManagement.Enemies_Killed > 50)
+        {
+            BossSpawnTime = 10f;
+        }
+    }
+
     private void Start()
     {
+        GetLevelManagement = FindObjectOfType<LevelManagement>();
+
         EagleBoss.transform.localScale = new Vector3(5, 5, 1);
         OpossumBoss.transform.localScale = new Vector3(5, 5, 1);
         FrogBoss.transform.localScale = new Vector3(5, 5, 1);
@@ -31,22 +45,19 @@ public class BossSpawner : MonoBehaviour {
 
     private void SpawnEnemy()
     {
-        float random = Random.Range(1f, 3f);
+        int random = Mathf.RoundToInt(Random.Range(1f, 3f));
 
-        if (gameObject.activeInHierarchy)
+        if (random == 1)
         {
-            if (random == 1)
-            {
-                Instantiate(EagleBoss, transform.position, transform.rotation);
-            }
-            else if (random == 2)
-            {
-                Instantiate(OpossumBoss, transform.position, transform.rotation);
-            }
-            else if (random == 3)
-            {
-                Instantiate(FrogBoss, transform.position, transform.rotation);
-            }
+            Instantiate(EagleBoss, transform.position, transform.rotation);
+        }
+        else if (random == 2)
+        {
+            Instantiate(OpossumBoss, transform.position, transform.rotation);
+        }
+        else if (random == 3)
+        {
+            Instantiate(FrogBoss, transform.position, transform.rotation);
         }
     }
 
@@ -54,7 +65,7 @@ public class BossSpawner : MonoBehaviour {
     {
         while (true)
         {
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(BossSpawnTime);
             SpawnEnemy();
         }
     }

@@ -89,39 +89,49 @@ public class LevelManagement : MonoBehaviour {
 
     private void Update()
     {
+        foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+        {
+            if(i.name == "Unlimited_Mode" && Enemies_Killed == 100)
+            {
+                i.SetActive(true);
+                Panel.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+
         switch (Enemies_Killed)
         {
-            case 2:
-                ChoosingUpgrade(false, true);
-                break;
-            case 5:
-                ChoosingUpgrade(true, false);
-                break;
-            case 8:
-                ChoosingUpgrade(false, true);
-                break;
-            case 10:
-                EnemSpawner1.SetActive(true);
-                break;
-            case 11:
-                ChoosingUpgrade(true, false);
-                break;
-            case 15:
-                ChoosingUpgrade(false, true);
-                break;
-            case 20:
-                ChoosingUpgrade(true, false);
-                EnemSpawner2.SetActive(true);
-                break;
-            case 30:
-                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject))) //This is special, need another script for it.
+        case 2:
+            ChoosingUpgrade(false, true);
+            break;
+        case 5:
+            ChoosingUpgrade(true, false);
+            break;
+        case 8:
+            ChoosingUpgrade(false, true);
+            break;
+        case 10:
+            EnemSpawner1.SetActive(true);
+            break;
+        case 11:
+            ChoosingUpgrade(true, false);
+            break;
+        case 15:
+            ChoosingUpgrade(false, true);
+            break;
+        case 20:
+            ChoosingUpgrade(true, false);
+            EnemSpawner2.SetActive(true);
+            break;
+        case 40:
+            foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+            {
+                if (i.name == "SpecialSpawner")
                 {
-                    if (i.name == "EnemySpawner (3)")
-                    {
-                        i.SetActive(true);
-                    }
+                    i.SetActive(true);
                 }
-                break;
+            }
+            break;
         }
     }
 
