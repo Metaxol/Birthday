@@ -25,6 +25,8 @@ public class LevelManagement : MonoBehaviour {
     private GameObject EnemSpawner1;
     private GameObject EnemSpawner2;
 
+    [HideInInspector] public bool UnlimitedControl = true;
+
     public void ResetVariables()
     {
         Enemies_Killed = 0;
@@ -81,21 +83,26 @@ public class LevelManagement : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(Strengthen_Enemies(5f, 0, -0.05f, -0.05f, -0.05f));
-        StartCoroutine(Strengthen_Enemies(20f, 1, 1f, 1f, 2f));
-        StartCoroutine(Strengthen_Enemies(15f, 2, 1f, 2f, 1f));
-        StartCoroutine(Strengthen_Enemies(10f, 3, 0.08f, 0.05f, 0.05f));
+        StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f));
+        StartCoroutine(Strengthen_Enemies(30f, 1, 1f, 1f, 2f));
+        StartCoroutine(Strengthen_Enemies(25f, 2, 1f, 2f, 1f));
+        StartCoroutine(Strengthen_Enemies(20f, 3, 0.08f, 0.05f, 0.05f));
     }
 
     private void Update()
     {
+        if (!UnlimitedControl && Enemies_Killed < 100)
+        {
+            //Continue here
+        }
+
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
-            if(i.name == "Unlimited_Mode" && Enemies_Killed == 100)
+            if(i.name == "Unlimited_Mode" && Enemies_Killed == 100 && UnlimitedControl)
             {
                 i.SetActive(true);
                 Panel.SetActive(true);
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
             }
         }
 
@@ -269,7 +276,7 @@ public class LevelManagement : MonoBehaviour {
     }
     #endregion
 
-    #region Use these Functions to upgrade Enemy Attributes. 
+    #region Use this Function to upgrade Enemy Attributes. 
     private void LidlFinderSpawner(int Attr, float increaseEagle, float increaseFrog, float increaseOpossum)
     {
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))

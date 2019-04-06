@@ -5376,7 +5376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &990364374
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5427,7 +5427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: asdf
+  m_Text: 
 --- !u!222 &990364376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8626,6 +8626,7 @@ MonoBehaviour:
   - 0
   Panel: {fileID: 0}
   UpgradeSprites: []
+  UnlimitedControl: 1
 --- !u!4 &1485596180
 Transform:
   m_ObjectHideFlags: 0
@@ -11436,7 +11437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2030845804
 Transform:
   m_ObjectHideFlags: 0
