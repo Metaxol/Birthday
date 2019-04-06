@@ -25,8 +25,6 @@ public class LevelManagement : MonoBehaviour {
     private GameObject EnemSpawner1;
     private GameObject EnemSpawner2;
 
-    [HideInInspector] public bool UnlimitedControl = true;
-
     public void ResetVariables()
     {
         Enemies_Killed = 0;
@@ -89,56 +87,61 @@ public class LevelManagement : MonoBehaviour {
         StartCoroutine(Strengthen_Enemies(20f, 3, 0.08f, 0.05f, 0.05f));
     }
 
+    private void setThreshhold(float hold, float Thresh)
+    {
+        if(hold > Thresh)
+        {
+            hold = Thresh;
+        }
+    }
+
     private void Update()
     {
-        if (!UnlimitedControl && Enemies_Killed < 100)
+        switch (Enemies_Killed) //Come up with a better way of calling the "Upgrade - Function".
         {
-            //Continue here
-        }
-
-        foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
-        {
-            if(i.name == "Unlimited_Mode" && Enemies_Killed == 100 && UnlimitedControl)
-            {
-                i.SetActive(true);
-                Panel.SetActive(true);
-                //Time.timeScale = 0;
-            }
-        }
-
-        switch (Enemies_Killed)
-        {
-        case 2:
-            ChoosingUpgrade(false, true);
-            break;
-        case 5:
-            ChoosingUpgrade(true, false);
-            break;
-        case 8:
-            ChoosingUpgrade(false, true);
-            break;
-        case 10:
-            EnemSpawner1.SetActive(true);
-            break;
-        case 11:
-            ChoosingUpgrade(true, false);
-            break;
-        case 15:
-            ChoosingUpgrade(false, true);
-            break;
-        case 20:
-            ChoosingUpgrade(true, false);
-            EnemSpawner2.SetActive(true);
-            break;
-        case 40:
-            foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
-            {
-                if (i.name == "SpecialSpawner")
+            case 2:
+                ChoosingUpgrade(false, true);
+                break;
+            case 5:
+                ChoosingUpgrade(true, false);
+                break;
+            case 8:
+                ChoosingUpgrade(false, true);
+                break;
+            case 10:
+                EnemSpawner1.SetActive(true);
+                break;
+            case 11:
+                ChoosingUpgrade(true, false);
+                break;
+            case 15:
+                ChoosingUpgrade(false, true);
+                break;
+            case 20:
+                ChoosingUpgrade(true, false);
+                EnemSpawner2.SetActive(true);
+                break;
+            case 24:
+                ChoosingUpgrade(false, true);
+                break;
+            case 28:
+                ChoosingUpgrade(true, false);
+                break;
+            case 32:
+                ChoosingUpgrade(false, true);
+                break;
+            case 36:
+                ChoosingUpgrade(true, false);
+                break;
+            case 40:
+                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
                 {
-                    i.SetActive(true);
+                    if (i.name == "SpecialSpawner")
+                    {
+                        i.SetActive(true);
+                    }
                 }
-            }
-            break;
+                break;
         }
     }
 
@@ -177,7 +180,7 @@ public class LevelManagement : MonoBehaviour {
                             switch ((int)choosing)
                             {
                                 case 1:
-                                    UpgradeHealth(2);
+                                    UpgradeHealth(3);
                                     print("Your health increased!");
                                     StopAndContinue(newBool);
                                     break;
