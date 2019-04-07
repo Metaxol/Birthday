@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour {
 
     private bool BulletCanMov = true;
 
-    public static float BulletRange = 0.5f;
+    public static float BulletRange = 0.2f;
 
     private void Awake()
     {

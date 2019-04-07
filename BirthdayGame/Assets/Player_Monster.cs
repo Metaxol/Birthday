@@ -13,6 +13,8 @@ public class Player_Monster : MonoBehaviour
 
     private LevelManagement GetLevelManagement;
 
+    [HideInInspector] public GameObject TryAgainQuit;
+
     private void Life_Function()
     {
         GetPlayerMovement.PlayerCanMove = false;
@@ -26,9 +28,13 @@ public class Player_Monster : MonoBehaviour
     {
         foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            if (x.name == "Panel" || x.name == "TryAgain_Quit")
+            if (x.name == "Panel")
             {
                 x.SetActive(true);
+            }else if(x.name == "TryAgain_Quit")
+            {
+                TryAgainQuit = x;
+                TryAgainQuit.SetActive(true);
             }
         }
     }
@@ -61,6 +67,14 @@ public class Player_Monster : MonoBehaviour
 
     private void Awake()
     {
+        foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if(x.name == "TryAgain_Quit")
+            {
+                TryAgainQuit = x;
+            }
+        }
+
         GetLevelManagement = FindObjectOfType<LevelManagement>();
         HealthText = GameObject.Find("HealthText").GetComponent<Text>();
         GetPlayerMovement = gameObject.GetComponent<PlayerMovement>();

@@ -12,8 +12,6 @@ public class LevelManagement : MonoBehaviour {
 
     float choosing;
 
-    [HideInInspector] public float[] RangeChoose = new float[2];
-
     private Animator UpgradeHolderAnimator;
 
     private GameObject UpgradeHolder;
@@ -24,6 +22,9 @@ public class LevelManagement : MonoBehaviour {
 
     private GameObject EnemSpawner1;
     private GameObject EnemSpawner2;
+
+    private float UpgradeCall_Delay = 10f;
+    private bool CallUpgrade = false;
 
     public void ResetVariables()
     {
@@ -82,58 +83,29 @@ public class LevelManagement : MonoBehaviour {
     private void Start()
     {
         StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f));
-        StartCoroutine(Strengthen_Enemies(30f, 1, 1f, 1f, 2f));
-        StartCoroutine(Strengthen_Enemies(25f, 2, 1f, 2f, 1f));
-        StartCoroutine(Strengthen_Enemies(20f, 3, 0.08f, 0.05f, 0.05f));
-    }
+        StartCoroutine(Strengthen_Enemies(20f, 1, 1f, 1f, 2f));
+        StartCoroutine(Strengthen_Enemies(10f, 2, 1f, 2f, 1f));
+        StartCoroutine(Strengthen_Enemies(25f, 3, 0.08f, 0.05f, 0.05f));
 
-    private void setThreshhold(float hold, float Thresh)
-    {
-        if(hold > Thresh)
-        {
-            hold = Thresh;
-        }
+        StartCoroutine(Call_Upgrades());
     }
 
     private void Update()
     {
+        if (CallUpgrade)
+        {
+            ChoosingUpgrade();
+        }
+
         switch (Enemies_Killed) //Come up with a better way of calling the "Upgrade - Function".
         {
-            case 2:
-                ChoosingUpgrade(false, true);
-                break;
-            case 5:
-                ChoosingUpgrade(true, false);
-                break;
-            case 8:
-                ChoosingUpgrade(false, true);
-                break;
             case 10:
                 EnemSpawner1.SetActive(true);
                 break;
-            case 11:
-                ChoosingUpgrade(true, false);
-                break;
-            case 15:
-                ChoosingUpgrade(false, true);
-                break;
             case 20:
-                ChoosingUpgrade(true, false);
                 EnemSpawner2.SetActive(true);
                 break;
-            case 24:
-                ChoosingUpgrade(false, true);
-                break;
-            case 28:
-                ChoosingUpgrade(true, false);
-                break;
-            case 32:
-                ChoosingUpgrade(false, true);
-                break;
-            case 36:
-                ChoosingUpgrade(true, false);
-                break;
-            case 40:
+            case 30:
                 foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
                 {
                     if (i.name == "SpecialSpawner")
@@ -141,92 +113,84 @@ public class LevelManagement : MonoBehaviour {
                         i.SetActive(true);
                     }
                 }
+                UpgradeCall_Delay = 7f;
                 break;
         }
     }
 
-    private void ChoosingUpgrade(bool ControlBool, bool newBool)
+    private void ChoosingUpgrade()
     {
-        if (Control == ControlBool)
+        if (!GetPlayer_Monster.TryAgainQuit.activeInHierarchy)
         {
             UpgradeHolder.SetActive(true);
             Panel.SetActive(true);
-            if (UpgradeHolder.activeInHierarchy)
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                choosing -= 1;
+                if (choosing < 1) //1
                 {
-                    choosing -= 1;
-                    if (choosing < RangeChoose[0]) //1
-                    {
-                        choosing = RangeChoose[0];
-                    }
-                }
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    choosing += 1;
-                    if (choosing > RangeChoose[1]) //6
-                    {
-                        choosing = RangeChoose[1];
-                    }
-                }
-
-                foreach (GameObject c in UpgradeSprites)
-                {
-                    if (c.transform.GetSiblingIndex() == choosing && c.activeInHierarchy)
-                    {
-                        c.GetComponent<SpriteRenderer>().color = Color.black;
-                        if (Input.GetKeyDown(KeyCode.Return))
-                        {
-                            switch ((int)choosing)
-                            {
-                                case 1:
-                                    UpgradeHealth(3);
-                                    print("Your health increased!");
-                                    StopAndContinue(newBool);
-                                    break;
-                                case 2:
-                                    UpgradePlayerSpeed(15f);
-                                    print("Your speed increased!");
-                                    StopAndContinue(newBool);
-                                    break;
-                                case 3:
-                                    ReduceTime(0.4f, 0.2f);
-                                    print("Time Reduced");
-                                    StopAndContinue(newBool);
-                                    break;
-                                case 4:
-                                    UpgradeBulletSpeed_Range(0.1f, 0.04f);
-                                    print("Faster Bullets");
-                                    StopAndContinue(newBool);
-                                    break;
-                                case 5:
-                                    UpgradePlayerDamage(1);
-                                    print("Damage increased!");
-                                    StopAndContinue(newBool);
-                                    break;
-                                case 6:
-                                    UpgradingSize(new Vector3(0.25f, 0.25f, 0));
-                                    print("Bigger bullets!");
-                                    StopAndContinue(newBool);
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        c.GetComponent<SpriteRenderer>().color = new Color(193f, 193f, 193f, 255);
-                    }
+                    choosing = 1;
                 }
             }
-        }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                choosing += 1;
+                if (choosing > 6) //6
+                {
+                    choosing = 6;
+                }
+            }
+
+            foreach (GameObject c in UpgradeSprites)
+            {
+                if (c.transform.GetSiblingIndex() == choosing && c.activeInHierarchy)
+                {
+                    c.GetComponent<SpriteRenderer>().color = Color.black;
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        switch ((int)choosing)
+                        {
+                            case 1:
+                                UpgradeHealth(5);
+                                StopAndContinue();
+                                break;
+                            case 2:
+                                UpgradePlayerSpeed(10f);
+                                StopAndContinue();
+                                break;
+                            case 3:
+                                ReduceTime(0.4f, 0.2f);
+                                StopAndContinue();
+                                break;
+                            case 4:
+                                UpgradeBulletSpeed_Range(0.2f, 0.04f);
+                                StopAndContinue();
+                                break;
+                            case 5:
+                                UpgradePlayerDamage(2);
+                                StopAndContinue();
+                                break;
+                            case 6:
+                                UpgradingSize(new Vector3(0.25f, 0.25f, 0));
+                                StopAndContinue();
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    c.GetComponent<SpriteRenderer>().color = new Color(193f, 193f, 193f, 255);
+                }
+            }
+        }       
     }
     
-    private void StopAndContinue(bool newBool)
+    private void StopAndContinue()
     {
         UpgradeHolderAnimator.Play("UpgradeHolderBack");
         Panel.GetComponent<Animator>().Play("AfterUpgrade");
         choosing = 0;
-        Control = newBool;
+        CallUpgrade = false;
     }
 
     #region Use these functions to upgrade the Player's Attributes.
@@ -261,7 +225,7 @@ public class LevelManagement : MonoBehaviour {
     private void UpgradeBulletSpeed_Range(float increaseRange, float increaseSpeed)
     {
         BulletController.BulletRange += increaseRange;
-        //Default is 0.5f
+        //Default is 0.2f
         //Do 0.05 - steps (normal)
         GetPlayerShooting.BulletSpeed += increaseSpeed;
         //Default is 0.1f
@@ -284,18 +248,27 @@ public class LevelManagement : MonoBehaviour {
     {
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
-            if (i.name == "EnemySpawner" && i.activeInHierarchy)
+            switch (i.name)
             {
-                EnemySpawning.EagleStuff[Attr] += increaseEagle;
-                if(i.name == "EnemySpawner (1)" && i.activeInHierarchy)
-                {
-                    EnemySpawning.FrogStuff[Attr] += increaseFrog;
-                    if(i.name == "EnemySpawner (2)" && i.activeInHierarchy)
+                case "EnemySpawner":
+                    if (i.activeInHierarchy)
+                    {
+                        EnemySpawning.EagleStuff[Attr] += increaseEagle;
+                    }
+                    break;
+                case "EnemySpawner (1)":
+                    if (i.activeInHierarchy)
+                    {
+                        EnemySpawning.FrogStuff[Attr] += increaseFrog;
+                    }
+                    break;
+                case "EnemySpawner (2)":
+                    if (i.activeInHierarchy)
                     {
                         EnemySpawning.OpossumStuff[Attr] += increaseOpossum;
                     }
-                }
-            }
+                    break;
+            }            
         }
     }
     #endregion
@@ -308,4 +281,13 @@ public class LevelManagement : MonoBehaviour {
             LidlFinderSpawner(Attribute, increaseEagle, increaseFrog, increaseOpossum);
         }
     }   
+
+    private IEnumerator Call_Upgrades()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(UpgradeCall_Delay);
+            CallUpgrade = true;
+        }
+    }
 }
