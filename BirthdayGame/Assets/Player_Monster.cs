@@ -43,12 +43,12 @@ public class Player_Monster : MonoBehaviour
     {
         if(PlayerHealth > 0)
         {
-            HealthText.text = "Health: " + PlayerHealth;
+            HealthText.text = PlayerHealth.ToString();
         }
         else if (PlayerHealth <= 0)
         {
             Life_Function();
-            HealthText.text = "Health: " + 0;
+            HealthText.text = 0.ToString();
         }
 
         if (Try_Again)

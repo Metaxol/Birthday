@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemySpawning : MonoBehaviour {
 
@@ -35,15 +36,21 @@ public class EnemySpawning : MonoBehaviour {
             case "Eagle":
                 SpawnRate = EagleStuff[0];
                 Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = EagleStuff[1];
+                GameObject.Find("EagleDamage_Text").GetComponent<Text>().text = EagleStuff[1].ToString();
                 Enemy.GetComponent<EnemyFollow>().Enemy_Health = EagleStuff[2];
+                GameObject.Find("EagleHealth_Text").GetComponent<Text>().text = EagleStuff[2].ToString();
                 Enemy.GetComponent<EnemyFollow>().EnemySpeed = EagleStuff[3];
-                
+                GameObject.Find("EagleSpeed_Text").GetComponent<Text>().text = EagleStuff[3].ToString();
+
                 break;
             case "Frog":
                 SpawnRate = FrogStuff[0];
                 Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = FrogStuff[1];
+                GameObject.Find("FrogDamage_Text").GetComponent<Text>().text = FrogStuff[1].ToString();
                 Enemy.GetComponent<EnemyFollow>().Enemy_Health = FrogStuff[2];
+                GameObject.Find("FrogHealth_Text").GetComponent<Text>().text = FrogStuff[2].ToString();
                 Enemy.GetComponent<EnemyFollow>().EnemySpeed = FrogStuff[3];
+                GameObject.Find("FrogSpeed_Text").GetComponent<Text>().text = FrogStuff[3].ToString(); //Fix this Frog - Att Stuff.
                 break;
             case "Opossum":
                 SpawnRate = OpossumStuff[0];
