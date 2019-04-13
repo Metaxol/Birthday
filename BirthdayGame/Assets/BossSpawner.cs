@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BossSpawner : MonoBehaviour {
 
@@ -49,16 +50,26 @@ public class BossSpawner : MonoBehaviour {
 
         if (random == 1)
         {
-            Instantiate(EagleBoss, transform.position, transform.rotation);
+            GameObject Enemy = Instantiate(EagleBoss, transform.position, transform.rotation);
+            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
+            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
+            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
         }
         else if (random == 2)
         {
-            Instantiate(OpossumBoss, transform.position, transform.rotation);
+            GameObject Enemy = Instantiate(OpossumBoss, transform.position, transform.rotation);
+            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
+            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
+            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
         }
         else if (random == 3)
         {
-            Instantiate(FrogBoss, transform.position, transform.rotation);
+            GameObject Enemy =  Instantiate(FrogBoss, transform.position, transform.rotation);
+            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
+            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
+            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
         }
+       
     }
 
     private IEnumerator Spawning()
