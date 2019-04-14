@@ -27,6 +27,10 @@ public class LevelManagement : MonoBehaviour {
     private float UpgradeCall_Delay = 10f;
     private bool CallUpgrade = false;
 
+    private GameObject ShowAtt;
+    private int ShowAttChoosing = -1;
+    private Text[] AttTexts = new Text[3];
+
     public void ResetVariables()
     {
         Enemies_Killed = 0;
@@ -73,6 +77,9 @@ public class LevelManagement : MonoBehaviour {
             }else if(i.name == "EnemySpawner (2)")
             {
                 EnemSpawner2 = i;
+            }else if(i.name == "ShowStats")
+            {
+                ShowAtt = i;
             }
         }
 
@@ -93,6 +100,8 @@ public class LevelManagement : MonoBehaviour {
 
     private void Update()
     {
+        ShowEnt_Attributes();
+        print(ShowAttChoosing);
         if (CallUpgrade)
         {
             ChoosingUpgrade();
@@ -121,7 +130,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void ChoosingUpgrade()
     {
-        if (!GetPlayer_Monster.TryAgainQuit.activeInHierarchy)
+        if (!GetPlayer_Monster.TryAgainQuit.activeInHierarchy && !ShowAtt.activeInHierarchy)
         {
             UpgradeHolder.SetActive(true);
             Panel.SetActive(true);
@@ -186,6 +195,139 @@ public class LevelManagement : MonoBehaviour {
         }       
     }
     
+    private void ShowEnt_Attributes()
+    {
+        if (Input.GetKeyDown(KeyCode.O) && !UpgradeHolder.activeSelf && !GetPlayer_Monster.TryAgainQuit.activeInHierarchy && !ShowAtt.activeInHierarchy)
+        {
+            ShowAtt.SetActive(true);
+            Time.timeScale = 0;
+            foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+            {
+                if (i.name == "NormalMonster_Text")
+                {
+                    AttTexts[0] = i.GetComponent<Text>();
+                    i.SetActive(true);
+                }
+                else if (i.name == "BossMonster_Text")
+                {
+                    AttTexts[1] = i.GetComponent<Text>();
+                    i.SetActive(true);
+                }
+                else if (i.name == "PlayerAttButton_Text")
+                {
+                    AttTexts[2] = i.GetComponent<Text>();
+                    i.SetActive(true);
+                }
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.O) && !UpgradeHolder.activeSelf && !GetPlayer_Monster.TryAgainQuit.activeInHierarchy && ShowAtt.activeInHierarchy)
+        {
+            foreach(Text i in AttTexts)
+            {
+                i.gameObject.SetActive(false);
+            }
+            Time.timeScale = 1;
+            ShowAttChoosing = -1; //Stores previous text settings, fix it. (You know what that means)
+            ShowAtt.SetActive(false);
+        }
+
+        if (ShowAtt.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                ShowAttChoosing += 1;
+                if (ShowAttChoosing > 3)
+                {
+                    ShowAttChoosing = 3;
+                }else if(ShowAttChoosing < 1)
+                {
+                    ShowAttChoosing = 1;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                ShowAttChoosing -= 1;
+                if (ShowAttChoosing < 1)
+                {
+                    ShowAttChoosing = 1;
+                }
+            }
+
+            foreach(Transform c in ShowAtt.transform)
+            {
+                if(c.name != "Tiles")
+                {
+                    if (c.GetSiblingIndex() == ShowAttChoosing)
+                    {
+                        c.GetComponent<SpriteRenderer>().color = new Color(99f / 255f, 97f / 255f, 97f / 255f, 255f / 255f);
+
+                        if(c.GetComponent<SpriteRenderer>().color == new Color(99f / 255f, 97f / 255f, 97f / 255f, 255f / 255f))
+                        {
+                            foreach(Transform x in c.transform)
+                            {
+                                x.gameObject.SetActive(true);
+
+                                switch (c.name)
+                                {
+                                    case "NormalMobs":
+                                        foreach (Transform o in AttTexts[0].transform)
+                                        {
+                                            o.gameObject.SetActive(true);
+                                        }
+                                        foreach (Transform o in AttTexts[1].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        foreach (Transform o in AttTexts[2].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        break;
+                                    case "BossMobs":
+                                        foreach (Transform o in AttTexts[1].transform)
+                                        {
+                                            o.gameObject.SetActive(true);
+                                        }
+                                        foreach (Transform o in AttTexts[0].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        foreach (Transform o in AttTexts[2].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        break;
+                                    case "Player":
+                                        foreach (Transform o in AttTexts[2].transform)
+                                        {
+                                            o.gameObject.SetActive(true);
+                                        }
+                                        foreach (Transform o in AttTexts[1].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        foreach (Transform o in AttTexts[0].transform)
+                                        {
+                                            o.gameObject.SetActive(false);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        c.GetComponent<SpriteRenderer>().color = new Color(184f / 255f, 177f / 255f, 177f / 255f, 255f / 255f);
+                        foreach (Transform x in c.transform)
+                        {
+                            x.gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }           
+        }
+    }
+
     private void StopAndContinue()
     {
         UpgradeHolderAnimator.Play("UpgradeHolderBack");

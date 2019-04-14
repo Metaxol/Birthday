@@ -43,31 +43,22 @@ public class BossSpawner : MonoBehaviour {
         StartCoroutine(IncreaseBoss());
         StartCoroutine(Spawning());
     }
-
+    
     private void SpawnEnemy()
     {
         int random = Mathf.RoundToInt(Random.Range(1f, 3f));
 
         if (random == 1)
         {
-            GameObject Enemy = Instantiate(EagleBoss, transform.position, transform.rotation);
-            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
+            Instantiate(EagleBoss, transform.position, transform.rotation);
         }
         else if (random == 2)
         {
-            GameObject Enemy = Instantiate(OpossumBoss, transform.position, transform.rotation);
-            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
+            Instantiate(OpossumBoss, transform.position, transform.rotation);
         }
         else if (random == 3)
         {
-            GameObject Enemy =  Instantiate(FrogBoss, transform.position, transform.rotation);
-            GameObject.Find("BossDamage_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-            GameObject.Find("BossSpeed_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-            GameObject.Find("BossHealth_Text").GetComponent<Text>().text = Enemy.GetComponent<EnemyFollow>().Enemy_Health.ToString();
+            Instantiate(FrogBoss, transform.position, transform.rotation);
         }
        
     }

@@ -13,26 +13,7 @@ public class EnemySpawning : MonoBehaviour {
 
     void SpawnEnemies()
     {
-        GameObject Enemy_ = Instantiate(Enemy, transform.position, transform.rotation);
-
-        switch (Enemy.name)
-        {
-            case "Eagle":
-                GameObject.Find("EagleDamage_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-                GameObject.Find("EagleHealth_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().Enemy_Health.ToString();
-                GameObject.Find("EagleSpeed_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-                break;
-            case "Frog":
-                GameObject.Find("FrogDamage_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-                GameObject.Find("FrogHealth_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().Enemy_Health.ToString();
-                GameObject.Find("FrogSpeed_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-                break;
-            case "Opossum":
-                GameObject.Find("OpossumDamage_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemyToPlayer_Damage.ToString();
-                GameObject.Find("OpossumHealth_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().Enemy_Health.ToString();
-                GameObject.Find("OpossumSpeed_Text").GetComponent<Text>().text = Enemy_.GetComponent<EnemyFollow>().EnemySpeed.ToString();
-                break;
-        }
+        Instantiate(Enemy, transform.position, transform.rotation);
     }
 
     private void Update()
@@ -40,7 +21,7 @@ public class EnemySpawning : MonoBehaviour {
         SetHarderGettingStuff();
     }
 
-    private void Start() //Make "Unlimited-Gamemode" Option.
+    private void Start()
     {
         EagleStuff = new float[] { 8f, 1, 1, 0.7f };
         FrogStuff = new float[] { 8, 1, 2, 0.25f };
