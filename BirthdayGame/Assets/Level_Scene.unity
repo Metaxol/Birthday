@@ -10748,6 +10748,10 @@ MonoBehaviour:
   Enemies_Killed: 0
   Panel: {fileID: 0}
   UpgradeSprites: []
+  AttTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1485596180
 Transform:
   m_ObjectHideFlags: 0
