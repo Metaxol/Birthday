@@ -106,40 +106,40 @@ public class LevelManagement : MonoBehaviour {
     private void Update()
     {
         ShowEnt_Attributes();
-        print(BulletController.BulletRange);
-        print(GetPlayerShooting.BulletSpeed);
+        print(EnemySpawning.EagleStuff[2]); //many problems
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
             switch (i.name)
-            {
+            { //Spawn,Damage,Health,Speed
                 case "EagleHealth_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.EagleStuff[1].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.EagleStuff[2].ToString();
                     break;
                 case "EagleDamage_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.EagleStuff[2].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.EagleStuff[1].ToString();
                     break;
                 case "EagleSpeed_Text":
                     i.GetComponent<Text>().text = EnemySpawning.EagleStuff[3].ToString();
                     break;
+                    /*
                 case "OpossumHealth_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.OpossumStuff[1].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.OpossumStuff[2].ToString();
                     break;
                 case "OpossumDamage_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.OpossumStuff[2].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.OpossumStuff[1].ToString();
                     break;
                 case "OpossumSpeed_Text":
                     i.GetComponent<Text>().text = EnemySpawning.OpossumStuff[3].ToString();
                     break;
                 case "FrogHealth_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.FrogStuff[1].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.FrogStuff[2].ToString();
                     break;
                 case "FrogDamage_Text":
-                    i.GetComponent<Text>().text = EnemySpawning.FrogStuff[2].ToString();
+                    i.GetComponent<Text>().text = EnemySpawning.FrogStuff[1].ToString();
                     break;
                 case "FrogSpeed_Text":
                     i.GetComponent<Text>().text = EnemySpawning.FrogStuff[3].ToString();
                     break;
-
+                    
                 case "EagleBossHealth_Text":
                     i.GetComponent<Text>().text = GetBossSpawner.EagleBoss.GetComponent<EnemyFollow>().Enemy_Health.ToString();
                     break;
@@ -184,11 +184,13 @@ public class LevelManagement : MonoBehaviour {
                     i.GetComponent<Text>().text = GetPlayerShooting.Player_Bullets.transform.localScale.x.ToString();
                     break;
                 case "TimeReduceText":
-                    i.GetComponent<Text>().text = GetPlayerShooting.BulletSpeed.ToString(); //Some bugs, fix them.
+                    i.GetComponent<Text>().text = (BulletController.BulletRange + GetPlayerShooting.BulletSpeed).ToString(); //Some bugs, fix them.
                     break;
                 default:
                     break;
+                    */
             }
+            
         }
 
         if (CallUpgrade)
