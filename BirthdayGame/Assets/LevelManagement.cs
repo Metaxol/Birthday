@@ -96,9 +96,9 @@ public class LevelManagement : MonoBehaviour {
     private void Start()
     {
         StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f));
-        StartCoroutine(Strengthen_Enemies(20f, 1, 1f, 1f, 2f));
-        StartCoroutine(Strengthen_Enemies(10f, 2, 1f, 2f, 1f));
-        StartCoroutine(Strengthen_Enemies(25f, 3, 0.08f, 0.05f, 0.05f));
+        //StartCoroutine(Strengthen_Enemies(20f, 1, 1f, 1f, 2f));
+        //StartCoroutine(Strengthen_Enemies(10f, 2, 1f, 2f, 1f));
+        //StartCoroutine(Strengthen_Enemies(25f, 3, 0.08f, 0.05f, 0.05f));
 
         StartCoroutine(Call_Upgrades());
     }
@@ -106,7 +106,7 @@ public class LevelManagement : MonoBehaviour {
     private void Update()
     {
         ShowEnt_Attributes();
-        print(EnemySpawning.EagleStuff[2]); //many problems
+        print(EnemySpawning.EagleStuff[2] + " " + EnemyFollow.PlayerToEnemy_Damage); //many problems
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
             switch (i.name)
