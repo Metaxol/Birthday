@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySpeed: 0.5
-  Enemy_Health: 2
-  EnemyToPlayer_Damage: 2
+  Enemy_Health: 3
+  EnemyToPlayer_Damage: 3
 --- !u!212 &212779481998207614
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,8 +9,6 @@ public class Player_Monster : MonoBehaviour
     [HideInInspector] public bool Try_Again = false;
     public float PlayerHealth;
 
-    private Text HealthText;
-
     private LevelManagement GetLevelManagement;
 
     [HideInInspector] public GameObject TryAgainQuit;
@@ -41,14 +39,10 @@ public class Player_Monster : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerHealth > 0)
-        {
-            HealthText.text = PlayerHealth.ToString();
-        }
-        else if (PlayerHealth <= 0)
+        if (PlayerHealth <= 0)
         {
             Life_Function();
-            HealthText.text = 0.ToString();
+            PlayerHealth = 0;
         }
 
         if (Try_Again)
@@ -76,7 +70,6 @@ public class Player_Monster : MonoBehaviour
         }
 
         GetLevelManagement = FindObjectOfType<LevelManagement>();
-        HealthText = GameObject.Find("HealthText").GetComponent<Text>();
         GetPlayerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 

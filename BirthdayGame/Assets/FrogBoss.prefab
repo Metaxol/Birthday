@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18026b28ae08a6f4da5e49f7a3120e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpeed: 0.5
-  Enemy_Health: 3
-  EnemyToPlayer_Damage: 1
+  EnemySpeed: 0.4
+  Enemy_Health: 5
+  EnemyToPlayer_Damage: 2
 --- !u!212 &212913515211001950
 SpriteRenderer:
   m_ObjectHideFlags: 1
