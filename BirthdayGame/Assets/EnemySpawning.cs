@@ -31,7 +31,7 @@ public class EnemySpawning : MonoBehaviour {
                 FrogStuff[3] += FrogStuff[0] / (25f / 0.05f);
                 break;
         }
-        
+
         SetHarderGettingStuff();
         Instantiate(Enemy, transform.position, transform.rotation);
     }

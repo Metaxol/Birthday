@@ -44,7 +44,7 @@ public class LevelManagement : MonoBehaviour {
         GetPlayerShooting.cooldown = 2;
         GetPlayerShooting.Delay = 1;
         EnemySpawning.SetOriginalState();
-        BossSpawner.SetOriginalState();
+        GetBossSpawner.SetOriginalState();
         GetPlayerShooting.Player_Bullets.transform.localScale = new Vector3(2, 2, 0);
     }
 
@@ -97,7 +97,7 @@ public class LevelManagement : MonoBehaviour {
     {
         StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f));
 
-        GetBossSpawner.SetEnemies();
+        GetBossSpawner.SetOriginalState();
 
         StartCoroutine(Call_Upgrades());
     }
@@ -105,7 +105,6 @@ public class LevelManagement : MonoBehaviour {
     private void Update()
     {
         ShowEnt_Attributes();
-        print(EnemySpawning.FrogStuff[2]); //many problems
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
             switch (i.name)
@@ -139,31 +138,31 @@ public class LevelManagement : MonoBehaviour {
                     break;
                     
                 case "EagleBossHealth_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.EagleBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.EagleBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
                     break;
                 case "EagleBossDamage_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
                     break;
                 case "EagleBossSpeed_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.EagleBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.EagleBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
                     break;
                 case "OpossumBossHealth_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
                     break;
                 case "OpossumBossDamage_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
                     break;
                 case "OpossumBossSpeed_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
                     break;
                 case "FrogBossHealth_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.FrogBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.FrogBoss.GetComponent<EnemyFollow>().Enemy_Health, 1).ToString();
                     break;
                 case "FrogBossDamage_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage, 1).ToString();
                     break;
                 case "FrogBossSpeed_Text":
-                    i.GetComponent<Text>().text = System.Math.Round(BossSpawner.FrogBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
+                    i.GetComponent<Text>().text = System.Math.Round(GetBossSpawner.FrogBoss.GetComponent<EnemyFollow>().EnemySpeed, 1).ToString();
                     break;
                     
 
@@ -204,7 +203,7 @@ public class LevelManagement : MonoBehaviour {
             case 12:
                 //EnemSpawner2.SetActive(true);
                 break;
-            case 2: //Check on BossMobs later, after having checked up on Upgrades.
+            case 1: //Check on BossMobs later, after having checked up on Upgrades. (being checked on right now)
                 GetBossSpawner.gameObject.SetActive(true);
                 UpgradeCall_Delay = 7f;
                 break;

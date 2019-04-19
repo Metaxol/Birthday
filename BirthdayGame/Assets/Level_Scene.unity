@@ -6679,10 +6679,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73956ff7e1941684f8d78b1aa8e6ba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EagleBoss: {fileID: 1342986821775176, guid: 62f0418a4f0b8a14896c2b25e831c9bd, type: 2}
-  _OpossumBoss: {fileID: 1088341448783546, guid: acc0c492dd93fb04497c12d0753a5813,
+  EagleBoss: {fileID: 1342986821775176, guid: 62f0418a4f0b8a14896c2b25e831c9bd, type: 2}
+  OpossumBoss: {fileID: 1088341448783546, guid: acc0c492dd93fb04497c12d0753a5813,
     type: 2}
-  _FrogBoss: {fileID: 1110930515228280, guid: 523f8482a3770cf4b8d51115ffc9d485, type: 2}
+  FrogBoss: {fileID: 1110930515228280, guid: 523f8482a3770cf4b8d51115ffc9d485, type: 2}
 --- !u!4 &983087914 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4759002593166436, guid: 89e345eecdecbfa4e88214200e3fd7a3,
