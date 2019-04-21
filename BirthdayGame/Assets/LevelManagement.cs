@@ -203,7 +203,7 @@ public class LevelManagement : MonoBehaviour {
             case 12:
                 //EnemSpawner2.SetActive(true);
                 break;
-            case 1: //Check on BossMobs later, after having checked up on Upgrades. (being checked on right now)
+            case 0: //Check on BossMobs later, after having checked up on Upgrades. (being checked on right now)
                 GetBossSpawner.gameObject.SetActive(true);
                 UpgradeCall_Delay = 7f;
                 break;

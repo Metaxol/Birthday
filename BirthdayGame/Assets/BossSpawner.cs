@@ -50,19 +50,8 @@ public class BossSpawner : MonoBehaviour {
     {
         int random = Mathf.RoundToInt(Random.Range(1f, 3f));
 
-        TestEagleHealth += 1 / 20;
-        EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 20;
-        EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 20;
-        EagleBoss.GetComponent<EnemyFollow>().Enemy_Health = TestEagleHealth;
-        print(TestEagleHealth);
-
-        OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1 / 20;
-        OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 20;
-        OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 20;
-
-        FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1 / 20;
-        FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 20;
-        FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 20;
+        UpgradeBoss(); //Fixed this shit.. Unity doesnt accept rationals? wtf worked in EnemySpawning (test, than continue with items)
+        print(EagleBoss.GetComponent<EnemyFollow>().Enemy_Health.ToString("F3"));
 
         if (random == 1)
         {
@@ -93,6 +82,11 @@ public class BossSpawner : MonoBehaviour {
         FrogBoss.GetComponent<EnemyFollow>().EnemySpeed = 0.04f;
     }
 
+    private void SetHarderGettingStuff_Boss()
+    {
+        EagleBoss.GetComponent<EnemyFollow>().Enemy_Health = TestEagleHealth;
+    }
+
     private IEnumerator Spawning()
     {
         while (true)
@@ -104,17 +98,17 @@ public class BossSpawner : MonoBehaviour {
     
     private void UpgradeBoss() //Fix EnemyBoss Upgrading, then items, then menu/intro + quirky stuff then adjustments to course of game.
     { 
-        EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 1 / 15;
-        EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 15;
-        EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 15;
+        EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 0.6f;
+        EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 0.6f;
+        EagleBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.003f;
 
-        OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 1 / 15;
-        OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 15;
-        OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 15;
+        OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health += 0.6f;
+        OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 0.6f;
+        OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.003f;
 
-        FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 1 / 15;
-        FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 1 / 15;
-        FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.05f / 15;
+        FrogBoss.GetComponent<EnemyFollow>().Enemy_Health += 0.6f;
+        FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 0.6f;
+        FrogBoss.GetComponent<EnemyFollow>().EnemySpeed += 0.003f;
     }
 
     private IEnumerator IncreaseBoss()
