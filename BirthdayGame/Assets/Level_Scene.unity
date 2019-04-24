@@ -10602,6 +10602,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  spawnItem: {fileID: 1083337663574010, guid: 6e4dbe8ae356dd24a8dc0df85da9685f, type: 2}
 --- !u!4 &1485596180
 Transform:
   m_ObjectHideFlags: 0

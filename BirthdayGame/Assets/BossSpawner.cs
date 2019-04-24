@@ -35,14 +35,13 @@ public class BossSpawner : MonoBehaviour {
         EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = 2;
 
         OpossumBoss.GetComponent<EnemyFollow>().Enemy_Health = 3;
-        OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed = 0.5f;
+        OpossumBoss.GetComponent<EnemyFollow>().EnemySpeed = 0.7f;
         OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = 3;
 
         FrogBoss.GetComponent<EnemyFollow>().Enemy_Health = 5;
         FrogBoss.GetComponent<EnemyFollow>().EnemySpeed = 0.4f;
         FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = 2;
 
-        //StartCoroutine(IncreaseBoss());
         StartCoroutine(Spawning());
     }
     
@@ -50,8 +49,7 @@ public class BossSpawner : MonoBehaviour {
     {
         int random = Mathf.RoundToInt(Random.Range(1f, 3f));
 
-        UpgradeBoss(); //Fixed this shit.. Unity doesnt accept rationals? wtf worked in EnemySpawning (test, than continue with items)
-        print(EagleBoss.GetComponent<EnemyFollow>().Enemy_Health.ToString("F3"));
+        UpgradeBoss(); 
 
         if (random == 1)
         {

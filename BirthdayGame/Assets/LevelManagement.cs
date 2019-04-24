@@ -100,6 +100,8 @@ public class LevelManagement : MonoBehaviour {
         GetBossSpawner.SetOriginalState();
 
         StartCoroutine(Call_Upgrades());
+
+        StartCoroutine(SpawnItems());
     }
 
     private void Update()
@@ -198,12 +200,12 @@ public class LevelManagement : MonoBehaviour {
         switch (Enemies_Killed)
         {
             case 6:
-                //EnemSpawner1.SetActive(true);
+                EnemSpawner1.SetActive(true);
                 break;
             case 12:
-                //EnemSpawner2.SetActive(true);
+                EnemSpawner2.SetActive(true);
                 break;
-            case 0: //Check on BossMobs later, after having checked up on Upgrades. (being checked on right now)
+            case 20:
                 GetBossSpawner.gameObject.SetActive(true);
                 UpgradeCall_Delay = 7f;
                 break;
@@ -243,7 +245,7 @@ public class LevelManagement : MonoBehaviour {
                         switch ((int)choosing)
                         {
                             case 1:
-                                UpgradeHealth((int)Mathf.Round(EnemySpawning.FrogStuff[2]/2));
+                                UpgradeHealth((int)Mathf.Round(GetBossSpawner.FrogBoss.GetComponent<EnemyFollow>().Enemy_Health));
                                 StopAndContinue();
                                 break;
                             case 2:
@@ -259,7 +261,7 @@ public class LevelManagement : MonoBehaviour {
                                 StopAndContinue();
                                 break;
                             case 5:
-                                UpgradePlayerDamage((int)Mathf.Round(EnemySpawning.OpossumStuff[1]/2));
+                                UpgradePlayerDamage((int)Mathf.Round(GetBossSpawner.OpossumBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage));
                                 StopAndContinue();
                                 break;
                             case 6:
@@ -496,4 +498,24 @@ public class LevelManagement : MonoBehaviour {
             CallUpgrade = true;
         }
     }
+
+    private IEnumerator SpawnItems()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            SpawnObject();
+        }
+    }
+
+    public GameObject spawnItem;
+
+    void SpawnObject()
+    {
+        float x = Random.Range(-5.568901f, 5.49f);
+        float y = Random.Range(8.021715f, 0.11f);
+
+        Instantiate(spawnItem, new Vector3(x, y, 0), Quaternion.identity);
+    }
+
 }
