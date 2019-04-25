@@ -510,12 +510,12 @@ public class LevelManagement : MonoBehaviour {
 
     public GameObject spawnItem;
 
-    void SpawnObject()
+    private void SpawnObject()
     {
         float x = Random.Range(-5.568901f, 5.49f);
         float y = Random.Range(8.021715f, 0.11f);
 
-        Instantiate(spawnItem, new Vector3(x, y, 0), Quaternion.identity);
+       Instantiate(spawnItem, new Vector3(x, y, 0), Quaternion.identity);
     }
 
 }
