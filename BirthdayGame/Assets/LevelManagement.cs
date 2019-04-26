@@ -10,7 +10,7 @@ public class LevelManagement : MonoBehaviour {
     private PlayerShooting GetPlayerShooting;
     private Player_Monster GetPlayer_Monster;
     private PlayerMovement GetPlayerMovement;
-    private BossSpawner GetBossSpawner;
+    [HideInInspector] public BossSpawner GetBossSpawner;
 
     float choosing;
 

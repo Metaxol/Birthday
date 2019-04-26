@@ -12,8 +12,6 @@ public class BossSpawner : MonoBehaviour {
 
     private float BossSpawnTime = 15f;
 
-    private static float TestEagleHealth = 3f;
-
     private void Update()
     {
         if (GetLevelManagement.Enemies_Killed > 50)
@@ -78,11 +76,6 @@ public class BossSpawner : MonoBehaviour {
         FrogBoss.GetComponent<EnemyFollow>().Enemy_Health = 5;
         FrogBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage = 2;
         FrogBoss.GetComponent<EnemyFollow>().EnemySpeed = 0.04f;
-    }
-
-    private void SetHarderGettingStuff_Boss()
-    {
-        EagleBoss.GetComponent<EnemyFollow>().Enemy_Health = TestEagleHealth;
     }
 
     private IEnumerator Spawning()

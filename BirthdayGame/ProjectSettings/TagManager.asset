@@ -8,6 +8,8 @@ TagManager:
   - Items
   - Walls
   - Player_Bullet
+  - Gem
+  - Berry
   layers:
   - Default
   - TransparentFX
