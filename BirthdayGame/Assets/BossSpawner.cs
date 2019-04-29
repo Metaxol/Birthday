@@ -45,7 +45,7 @@ public class BossSpawner : MonoBehaviour {
     
     private void SpawnEnemy()
     {
-        int random = Mathf.RoundToInt(Random.Range(1f, 3f));
+        int random = Mathf.RoundToInt(Random.Range(1f, 4f));
 
         UpgradeBoss(); 
 
@@ -87,7 +87,7 @@ public class BossSpawner : MonoBehaviour {
         }
     }
     
-    private void UpgradeBoss() //Fix EnemyBoss Upgrading, then items, then menu/intro + quirky stuff then adjustments to course of game.
+    private void UpgradeBoss() //Fix EnemyBoss Upgrading, then items (and test other bugs), then menu/intro + quirky stuff then adjustments to course of game.
     { 
         EagleBoss.GetComponent<EnemyFollow>().Enemy_Health += 0.6f;
         EagleBoss.GetComponent<EnemyFollow>().EnemyToPlayer_Damage += 0.6f;

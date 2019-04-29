@@ -19,16 +19,14 @@ public class ItemController : MonoBehaviour {
             }           
         }else if(collision.gameObject.tag == "Walls")
         {
-            print("Hello");
+            print("What the fck");
+            Destroy(gameObject);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) //Find out why this isn't working. (Collision detection)
+    private void Start()
     {
-        if (collision.gameObject.tag == "Walls")
-        {
-            print("Hello");
-        }
+        Destroy(gameObject, 7f);
     }
 
     private void DestroyThis()

@@ -40,12 +40,11 @@ public class LevelManagement : MonoBehaviour {
         GetPlayerMovement.PlayerMovSpeed = 100;
         BulletController.BulletRange = 0.5f;
         GetPlayerShooting.BulletSpeed = 0.1f;
-        GetPlayerShooting.Player_Bullets.transform.localScale = new Vector3(2, 3, 0);
+        GetPlayerShooting.Player_Bullets.transform.localScale = new Vector3(2, 2, 0);
         GetPlayerShooting.cooldown = 2;
         GetPlayerShooting.Delay = 1;
         EnemySpawning.SetOriginalState();
         GetBossSpawner.SetOriginalState();
-        GetPlayerShooting.Player_Bullets.transform.localScale = new Vector3(2, 2, 0);
     }
 
     private void Awake()
@@ -95,7 +94,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f));
+        StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f)); //It works
 
         GetBossSpawner.SetOriginalState();
 
@@ -503,19 +502,31 @@ public class LevelManagement : MonoBehaviour {
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(UpgradeCall_Delay + 1f); //use "UpgradeCall_Delay", is good time, +2f so it's not the same.
             SpawnObject();
         }
     }
 
-    public GameObject spawnItem;
+    [SerializeField] private GameObject spawn1_Item;
+    [SerializeField] private GameObject spawn2_Item;
 
     private void SpawnObject()
     {
         float x = Random.Range(-5.568901f, 5.49f);
         float y = Random.Range(8.021715f, 0.11f);
 
-       Instantiate(spawnItem, new Vector3(x, y, 0), Quaternion.identity);
+        int randomItem = Random.Range(1, 3);
+
+        print(randomItem);
+
+        if(randomItem == 1)
+        {
+            Instantiate(spawn1_Item, new Vector3(x, y, 0), Quaternion.identity);
+        }
+        else if(randomItem == 2)
+        {
+            Instantiate(spawn2_Item, new Vector3(x, y, 0), Quaternion.identity);
+        }
     }
 
 }
