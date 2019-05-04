@@ -204,8 +204,15 @@ public class LevelManagement : MonoBehaviour {
             case 12:
                 EnemSpawner2.SetActive(true);
                 break;
-            case 20:
-                GetBossSpawner.gameObject.SetActive(true);
+            case 2:
+                //GetBossSpawner.gameObject.SetActive(true);
+                foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
+                {
+                    if(i.name == "NewBackGround")
+                    {
+                        i.SetActive(true);
+                    }
+                }
                 UpgradeCall_Delay = 7f;
                 break;
         }
