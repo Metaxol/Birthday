@@ -14,9 +14,12 @@ public class BossSpawner : MonoBehaviour {
 
     private void Update()
     {
-        if (GetLevelManagement.Enemies_Killed > 50)
+        if (GetLevelManagement.Enemies_Killed == 50)
         {
             BossSpawnTime = 10f;
+        }else if(GetLevelManagement.Enemies_Killed == 70)
+        {
+            BossSpawnTime = 4f;
         }
     }
 

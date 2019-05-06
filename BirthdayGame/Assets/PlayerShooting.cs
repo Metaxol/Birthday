@@ -14,10 +14,14 @@ public class PlayerShooting : MonoBehaviour {
 
     [HideInInspector] public bool canShoot = true;
 
+    public AudioClip impact;
+    AudioSource audioSource;
+
     private void Shoot(float[] Rotation, Vector3 Position, float ySpeed, float xSpeed)
     {
         if (Time.time > Timestamp)
         {
+            audioSource.PlayOneShot(impact);
             GameObject bullet = Instantiate(Player_Bullets, transform.position + Position, transform.rotation);
             Timestamp = Time.time + cooldown;
             bullet.GetComponent<BulletController>().changeRot(Rotation);
@@ -29,6 +33,7 @@ public class PlayerShooting : MonoBehaviour {
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         GetPlayerMovement = FindObjectOfType<PlayerMovement>();
     }
 

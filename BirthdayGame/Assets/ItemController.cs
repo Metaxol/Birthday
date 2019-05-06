@@ -19,7 +19,6 @@ public class ItemController : MonoBehaviour {
             }           
         }else if(collision.gameObject.tag == "Walls")
         {
-            print("What the fck");
             Destroy(gameObject);
         }
     }

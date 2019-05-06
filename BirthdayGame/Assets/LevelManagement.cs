@@ -94,7 +94,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(Strengthen_Enemies(10f, 0, -0.05f, -0.05f, -0.05f)); //It works
+        StartCoroutine(Strengthen_Enemies(10f, 0, -0.4f, -0.4f, -0.4f));
 
         GetBossSpawner.SetOriginalState();
 
@@ -204,11 +204,11 @@ public class LevelManagement : MonoBehaviour {
             case 12:
                 EnemSpawner2.SetActive(true);
                 break;
-            case 2:
-                //GetBossSpawner.gameObject.SetActive(true);
+            case 20:
+                GetBossSpawner.gameObject.SetActive(true);
                 foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
                 {
-                    if(i.name == "NewBackGround")
+                    if (i.name == "NewBackGround")
                     {
                         i.SetActive(true);
                     }
@@ -535,5 +535,4 @@ public class LevelManagement : MonoBehaviour {
             Instantiate(spawn2_Item, new Vector3(x, y, 0), Quaternion.identity);
         }
     }
-
 }

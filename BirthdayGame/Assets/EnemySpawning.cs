@@ -11,6 +11,24 @@ public class EnemySpawning : MonoBehaviour {
     static public float[] FrogStuff = new float[] { 8, 1, 2, 0.25f };
     static public float[] OpossumStuff = new float[] { 8, 2, 1, 0.5f };
 
+    private void Update()
+    {
+        if(EagleStuff[0] < 0)
+        {
+            EagleStuff[0] = 0.1f;
+        }
+
+        if(OpossumStuff[0] < 0)
+        {
+            OpossumStuff[0] = 0.1f;
+        }
+
+        if(FrogStuff[0] < 0)
+        {
+            FrogStuff[0] = 0.1f;
+        }
+    }
+
     void SpawnEnemies()
     {       
         switch (Enemy.name)

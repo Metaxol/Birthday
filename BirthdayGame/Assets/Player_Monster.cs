@@ -13,12 +13,16 @@ public class Player_Monster : MonoBehaviour
 
     [HideInInspector] public GameObject TryAgainQuit;
 
+    public AudioClip death;
+    AudioSource audioSource;
+
     private void Life_Function()
     {
         GetPlayerMovement.PlayerCanMove = false;
         GetPlayerMovement.PlayerRigidbody2D.velocity = new Vector3(0, 0, 0);
         GetPlayerMovement.gameObject.GetComponent<Collider2D>().enabled = false;
 
+        audioSource.PlayOneShot(death);
         GetPlayerMovement.PlayerAnimator.Play("Player_Death");
     }
 
@@ -61,6 +65,7 @@ public class Player_Monster : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         foreach (GameObject x in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if(x.name == "TryAgain_Quit")

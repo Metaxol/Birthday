@@ -31,6 +31,9 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
                 DestroyEnemy();
             }
             collision.gameObject.GetComponent<BulletController>().Destroy_Directly(0.3f);
+        }else if(collision.gameObject.tag == "EnemyKiller")
+        {
+            DestroyEnemy();
         }
     }
 
@@ -40,7 +43,7 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
         {
             collision.gameObject.GetComponent<Player_Monster>().PlayerHealth -= EnemyToPlayer_Damage;
             DestroyEnemy();
-        }
+        } 
     }
 
     public void DestroyEnemy()

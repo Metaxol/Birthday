@@ -10,6 +10,8 @@ TagManager:
   - Player_Bullet
   - Gem
   - Berry
+  - EnemyKiller
+  - music
   layers:
   - Default
   - TransparentFX
