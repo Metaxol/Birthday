@@ -11,6 +11,7 @@ public class PlayerShooting : MonoBehaviour {
     public float Delay;
 
     private PlayerMovement GetPlayerMovement;
+    private LevelManagement GetLevelManagement;
 
     [HideInInspector] public bool canShoot = true;
 
@@ -19,7 +20,7 @@ public class PlayerShooting : MonoBehaviour {
 
     private void Shoot(float[] Rotation, Vector3 Position, float ySpeed, float xSpeed)
     {
-        if (Time.time > Timestamp)
+        if (Time.time > Timestamp && !GetLevelManagement.UpgradeHolder.activeSelf)
         {
             audioSource.PlayOneShot(impact);
             GameObject bullet = Instantiate(Player_Bullets, transform.position + Position, transform.rotation);
@@ -33,6 +34,7 @@ public class PlayerShooting : MonoBehaviour {
 
     private void Awake()
     {
+        GetLevelManagement = FindObjectOfType<LevelManagement>();
         audioSource = GetComponent<AudioSource>();
         GetPlayerMovement = FindObjectOfType<PlayerMovement>();
     }

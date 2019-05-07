@@ -16,7 +16,7 @@ public class LevelManagement : MonoBehaviour {
 
     private Animator UpgradeHolderAnimator;
 
-    private GameObject UpgradeHolder;
+    [HideInInspector] public GameObject UpgradeHolder;
     public GameObject Panel;
     [SerializeField] private List<GameObject> UpgradeSprites = new List<GameObject>();
 
@@ -31,6 +31,12 @@ public class LevelManagement : MonoBehaviour {
     private GameObject ShowAtt;
     private int ShowAttChoosing = -1;
     [SerializeField] private Text[] AttTexts = new Text[3];
+
+    public AudioClip UpgradeAppeared;
+    public AudioClip impact;
+    AudioSource audioSource;
+    private bool PlayAudioOnce = true;
+    public AudioClip UpgradeChosen;
 
     public void ResetVariables()
     {
@@ -49,6 +55,7 @@ public class LevelManagement : MonoBehaviour {
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         foreach (GameObject i in Resources.FindObjectsOfTypeAll(typeof(GameObject)))
         {
             switch (i.name)
@@ -222,10 +229,16 @@ public class LevelManagement : MonoBehaviour {
     {
         if (!GetPlayer_Monster.TryAgainQuit.activeInHierarchy && !ShowAtt.activeInHierarchy)
         {
+            if (PlayAudioOnce)
+            {
+                audioSource.PlayOneShot(UpgradeAppeared);
+                PlayAudioOnce = false;
+            }
             UpgradeHolder.SetActive(true);
             Panel.SetActive(true);
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                audioSource.PlayOneShot(impact);
                 choosing -= 1;
                 if (choosing < 1) //1
                 {
@@ -234,6 +247,7 @@ public class LevelManagement : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+                audioSource.PlayOneShot(impact);
                 choosing += 1;
                 if (choosing > 6) //6
                 {
@@ -289,6 +303,7 @@ public class LevelManagement : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.O) && !UpgradeHolder.activeSelf && !GetPlayer_Monster.TryAgainQuit.activeInHierarchy && !ShowAtt.activeInHierarchy)
         {
+            audioSource.PlayOneShot(impact);
             ShowAtt.SetActive(true);
             foreach(Text i in AttTexts)
             {
@@ -325,6 +340,7 @@ public class LevelManagement : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                audioSource.PlayOneShot(impact);
                 ShowAttChoosing += 1;
                 if (ShowAttChoosing > 3)
                 {
@@ -336,6 +352,7 @@ public class LevelManagement : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                audioSource.PlayOneShot(impact);
                 ShowAttChoosing -= 1;
                 if (ShowAttChoosing < 1)
                 {
@@ -401,6 +418,8 @@ public class LevelManagement : MonoBehaviour {
 
     private void StopAndContinue()
     {
+        audioSource.PlayOneShot(UpgradeChosen);
+        PlayAudioOnce = true;
         UpgradeHolderAnimator.Play("UpgradeHolderBack");
         Panel.GetComponent<Animator>().Play("AfterUpgrade");
         choosing = 0;
@@ -523,8 +542,6 @@ public class LevelManagement : MonoBehaviour {
         float y = Random.Range(8.021715f, 0.11f);
 
         int randomItem = Random.Range(1, 3);
-
-        print(randomItem);
 
         if(randomItem == 1)
         {

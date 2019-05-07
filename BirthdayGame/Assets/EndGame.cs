@@ -32,11 +32,11 @@ public class EndGame : MonoBehaviour {
     {
         if(GetLevelManagement.Enemies_Killed == 1)
         {
-            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemy!", End_Text));
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "Score: " + GetLevelManagement.Enemies_Killed + ".", End_Text));
         }
         else
         {
-            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "You killed " + GetLevelManagement.Enemies_Killed + " Enemies!", End_Text));
+            StartCoroutine(TextScroll("Press 'I' to quit the game! Press 'U' to try again!" + "\n" + "Score: " + GetLevelManagement.Enemies_Killed + ".", End_Text));
         }
     }
 

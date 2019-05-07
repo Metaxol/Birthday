@@ -12,6 +12,9 @@ public class BulletController : MonoBehaviour {
 
     public static float BulletRange = 0.2f;
 
+    public AudioClip impact;
+    AudioSource audioSource;
+
     private void Awake()
     {
         gameObject.GetComponent<Animator>().enabled = false;      
@@ -19,6 +22,7 @@ public class BulletController : MonoBehaviour {
 
     public void Destroy_Directly(float DestroyIn)
     {
+        audioSource.PlayOneShot(impact);
         gameObject.GetComponent<Animator>().enabled = true;
         BulletCanMov = false;
         Destroy(gameObject, DestroyIn);
@@ -26,6 +30,7 @@ public class BulletController : MonoBehaviour {
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine("DestroyBullet");
     }
 
@@ -42,6 +47,7 @@ public class BulletController : MonoBehaviour {
         switch (collision.gameObject.tag)
         {
             case "Walls":
+                //audioSource.PlayOneShot(impact);
                 Destroy_Directly(0.3f);
                 break;
         }

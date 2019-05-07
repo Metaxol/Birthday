@@ -13,8 +13,14 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
     public static int PlayerToEnemy_Damage = 1;
     public float EnemyToPlayer_Damage = 1;
 
+    public AudioClip impact;
+    public AudioClip death;
+    public AudioClip PlayerHit;
+    AudioSource audioSource;
+
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         GetLevelManagement = FindObjectOfType<LevelManagement>();
         LastPosition = transform.position;
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -24,9 +30,11 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
     {
         if(collision.gameObject.tag == "Player_Bullet")
         {
+            audioSource.PlayOneShot(impact);
             Enemy_Health -= PlayerToEnemy_Damage;
             if(Enemy_Health <= 0)
             {
+                audioSource.PlayOneShot(death);
                 GetLevelManagement.Enemies_Killed += 1;
                 DestroyEnemy();
             }
@@ -41,6 +49,7 @@ public class EnemyFollow : MonoBehaviour { //It's more of an "EnemyController".
     {
         if (collision.gameObject.tag == "Player")
         {
+            audioSource.PlayOneShot(PlayerHit);
             collision.gameObject.GetComponent<Player_Monster>().PlayerHealth -= EnemyToPlayer_Damage;
             DestroyEnemy();
         } 

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
         if (PlayerCanMove)
         {
             PlayerRigidbody2D.velocity = new Vector3(x * MoveSpeed * Time.deltaTime, y * MoveSpeed * Time.deltaTime, 0);
-            PlayerAnimator.SetBool("isWalking", true);
+            //PlayerAnimator.SetBool("isWalking", true);
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -34,16 +34,45 @@ public class PlayerMovement : MonoBehaviour {
     {
         //Have to test this code. (Activates Idle Animation after having walked)
         Vector2 mag = PlayerRigidbody2D.velocity;
-        if(mag.magnitude == 0) //Have to check on another PC if this is gonna work.
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            PlayerAnimator.SetBool("isWalking", false); 
+            PlayerAnimator.SetBool("isWalking", true);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", true);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", true);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", false);
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", false);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", false);
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            PlayerAnimator.SetBool("isWalking", false);
         }
         //Test.
 
         Move_Player(PlayerMovSpeed); //Parameter decides MoveSpeed.         
     }
     
-    private void Awake()
+    private void Awake()                                                                   
     {
         PlayerAnimator = gameObject.GetComponent<Animator>();
         PlayerRigidbody2D = gameObject.GetComponent<Rigidbody2D>();

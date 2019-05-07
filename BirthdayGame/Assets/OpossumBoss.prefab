@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50800958218553092}
   - component: {fileID: 58289068212605304}
   - component: {fileID: 114372696028829008}
+  - component: {fileID: 82532720575665584}
   m_Layer: 0
   m_Name: OpossumBoss
   m_TagString: Enemy
@@ -79,6 +80,86 @@ CircleCollider2D:
   m_Offset: {x: -0.019174384, y: -0.02666496}
   serializedVersion: 2
   m_Radius: 0.094586745
+--- !u!82 &82532720575665584
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088341448783546}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95477342656689398
 Animator:
   serializedVersion: 3
@@ -107,9 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18026b28ae08a6f4da5e49f7a3120e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpeed: 0.5
+  EnemySpeed: 0.05
   Enemy_Health: 3
   EnemyToPlayer_Damage: 3
+  impact: {fileID: 8300000, guid: c780d70cf41c7084c839a9dc1418fd7a, type: 3}
+  death: {fileID: 8300000, guid: 8c4696b62030f0c438715da4af4ff4f5, type: 3}
+  PlayerHit: {fileID: 8300000, guid: 5c571e71c78b4da4a80f551fddd0cbe7, type: 3}
 --- !u!212 &212779481998207614
 SpriteRenderer:
   m_ObjectHideFlags: 1
